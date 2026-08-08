@@ -457,7 +457,9 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
         <div><dt>Sensing</dt><dd>8 × FSR 402, 10 kΩ dividers</dd></div>
         <div><dt>Electronics</dt><dd>ESP32-S3, 74HC4051, custom PCB</dd></div>
         <div><dt>Acquisition</dt><dd>12-bit ADC, 200 Hz, CSV</dd></div>
-        <div><dt>Structure</dt><dd>FDM, TPU 90A, gyroid infill</dd></div>
+        <div><dt>Structure</dt><dd>Two-part TPU 90A, slot-together</dd></div>
+        <div><dt>Wearable</dt><dd>Velcro straps, ankle-mounted PCB</dd></div>
+        <div><dt>Power</dt><dd>USB-C</dd></div>
         <div><dt>Design</dt><dd>Fusion 360, Blender, LiDAR</dd></div>
         <div><dt>Analysis</dt><dd>Python, polynomial fitting</dd></div>
       </dl>
@@ -484,9 +486,9 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
         </div>
         <div class="stage-text">
           <p class="stage-n"><b>02</b><span></span>Manufacture</p>
-          <h4>Make the structure part of the sensor</h4>
-          <p>The sensing plate prints separately in TPU 90A and drops into the platform, with each FSR seated in a cavity rather than printed over. Nothing is pre-loaded, and a failed sensor can be swapped without reprinting anything.</p>
-          <p>Three contact geometries — flat dome, dome and puck — were printed across four infill densities. These are the independent variables of the whole study: not comfort settings, but the thing that decides how load arrives at the sensing area.</p>
+          <h4>Two parts, so one variable moves at a time</h4>
+          <p>The platform prints as two pieces in TPU 90A that slot together: a base matched to the foot, and a removable sensing plate carrying the eight FSRs in open cavities. Nothing is printed over a sensor, so none of them start pre-loaded.</p>
+          <p>That split is what made the study workable. Changing contact geometry, or replacing a failed FSR, means reprinting one small plate instead of the whole platform — so a single variable moves while everything else stays identical. Velcro straps hold the assembly to the foot, and it can be taken off and refitted without disturbing sensor position.</p>
         </div>
       </div>
 
@@ -499,8 +501,8 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
         <div class="stage-text">
           <p class="stage-n"><b>03</b><span></span>Electronics</p>
           <h4>Eight sensors, one ADC channel</h4>
-          <p>Each FSR sits in a voltage divider against a 10 kΩ fixed resistor, picked off the datasheet curves as the best compromise between low-load sensitivity and not saturating early.</p>
-          <p>A 74HC4051 multiplexer lets all eight share a single ADC input on an ESP32-S3, which keeps the board small enough to live in a shoe. I proved the circuit on breadboard before committing to the PCB.</p>
+          <p>Each FSR sits in a voltage divider against a 10 kΩ fixed resistor, picked off the datasheet curves as the best compromise between low-load sensitivity and not saturating early. A 74HC4051 multiplexer lets all eight share a single ADC input on an ESP32-S3. I proved the circuit on breadboard before committing to the PCB.</p>
+          <p>The board sits in its own enclosure strapped at the ankle rather than underfoot, with the sensor loom routed down to the plate and the whole system powered over USB-C. Keeping the electronics off the foot means nothing rigid sits in the load path, which would otherwise corrupt the very measurement the device exists to take.</p>
         </div>
       </div>
 
@@ -513,7 +515,7 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
         <div class="stage-text">
           <p class="stage-n"><b>04</b><span></span>Calibration</p>
           <h4>Known masses, controlled loading</h4>
-          <p>A custom jig applies vertical load to a printed test cube containing an embedded sensor, in 2.5 kg steps up to 12.5 kg — roughly 280 kPa once converted through the known contact area.</p>
+          <p>A custom jig applies vertical load to a printed test cube containing an embedded sensor, in 2.5 kg steps up to 12.5 kg — roughly 280 kPa once converted through the known contact area. Three contact geometries (flat dome, dome and puck) were characterised across four infill densities.</p>
           <p>Output was sampled at 200 Hz and averaged over five seconds per step to settle the signal. Third-order polynomials fitted the non-linear response, the dome geometry reaching R² = 0.998.</p>
         </div>
       </div>
@@ -675,6 +677,7 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
           <li>Mesh repair and surface work — Blender</li>
           <li>3D scanning and photogrammetry</li>
           <li>FDM printing, including TPU and flexibles</li>
+          <li>Wearable and enclosure design</li>
           <li>Design for print, tolerance and assembly</li>
         </ul>
       </div>
