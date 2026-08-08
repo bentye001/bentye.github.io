@@ -190,12 +190,12 @@ section{padding:clamp(56px,8vw,104px) 0;border-top:1px solid var(--rule)}
 .stage{display:grid;grid-template-columns:1.1fr .9fr;border-bottom:1px solid var(--rule)}
 .stage-media{order:1;background:#EDF0F4;display:grid;gap:1px;align-content:stretch}
 .stage-text{order:2;padding:clamp(26px,3.6vw,52px);display:flex;flex-direction:column;justify-content:center}
-.stage:nth-of-type(even) .stage-media{order:2}
-.stage:nth-of-type(even) .stage-text{order:1}
+.stage.flip .stage-media{order:2}
+.stage.flip .stage-text{order:1}
 @media(max-width:840px){
   .stage{grid-template-columns:1fr}
-  .stage-media,.stage:nth-of-type(even) .stage-media{order:1}
-  .stage-text,.stage:nth-of-type(even) .stage-text{order:2}
+  .stage-media,.stage.flip .stage-media{order:1}
+  .stage-text,.stage.flip .stage-text{order:2}
 }
 .stage-n{
   font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
@@ -476,7 +476,7 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
         </div>
       </div>
 
-      <div class="stage">
+      <div class="stage flip">
         <div class="stage-media">
           <button class="shot" type="button" data-cap="Contact geometry — sliced for print in TPU 90A with gyroid infill">
             <img src="img/contact-geometry.jpg" alt="Sliced print preview of the removable sensing plate showing the eight raised sensor contact geometries." loading="lazy" decoding="async">
@@ -504,7 +504,7 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
         </div>
       </div>
 
-      <div class="stage">
+      <div class="stage flip">
         <div class="stage-media">
           <button class="shot" type="button" data-cap="Calibration jig — controlled vertical loading in 2.5 kg steps">
             <img src="img/calibration-jig.jpg" alt="Rendered calibration jig designed to apply controlled vertical loading to an embedded sensor test cube." loading="lazy" decoding="async">
@@ -582,7 +582,7 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
         </div>
       </div>
 
-      <div class="stage">
+      <div class="stage flip">
         <div class="stage-media">
           <button class="shot" type="button" data-cap="Live inference — 31 tablets detected on-device via NCNN">
             <img src="img/pill-detection.jpg" alt="Camera image after YOLOv8 inference, with bounding boxes and confidence scores over 31 tablets." loading="lazy" decoding="async">
