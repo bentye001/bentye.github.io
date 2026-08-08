@@ -129,10 +129,10 @@ h2.sec-title{
 .fig-key i{width:8px;height:8px;border-radius:50%;display:inline-block}
 
 .sole{fill:none;stroke:var(--rule);stroke-width:1.6}
-.cop{stroke:var(--signal);stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round;
-     stroke-dasharray:340;stroke-dashoffset:340;animation:trace 5s cubic-bezier(.45,0,.35,1) infinite}
+.cop{stroke:var(--signal);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round;
+     stroke-dasharray:280;stroke-dashoffset:280;animation:trace 5s cubic-bezier(.45,0,.35,1) infinite}
 @keyframes trace{
-  0%{stroke-dashoffset:340}
+  0%{stroke-dashoffset:280}
   55%{stroke-dashoffset:0}
   85%{stroke-dashoffset:0;opacity:1}
   100%{stroke-dashoffset:0;opacity:0}
@@ -189,6 +189,9 @@ section{padding:clamp(56px,8vw,104px) 0;border-top:1px solid var(--rule)}
 /* staged walkthrough */
 .stage{display:grid;grid-template-columns:1.1fr .9fr;border-bottom:1px solid var(--rule)}
 .stage-media{order:1;background:#EDF0F4;display:grid;gap:1px;align-content:stretch}
+.stage-media.pair{grid-template-columns:1fr 1fr;align-content:start}
+.stage-media.pair.tall .shot img{aspect-ratio:3/4;object-fit:cover}
+@media(max-width:520px){.stage-media.pair{grid-template-columns:1fr}.stage-media.pair.tall .shot img{aspect-ratio:4/3}}
 .stage-text{order:2;padding:clamp(26px,3.6vw,52px);display:flex;flex-direction:column;justify-content:center}
 .stage.flip .stage-media{order:2}
 .stage.flip .stage-text{order:1}
@@ -371,48 +374,49 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
         <span><i style="background:var(--mid)"></i>Midfoot</span>
         <span><i style="background:var(--fore)"></i>Forefoot</span>
       </p>
-      <svg viewBox="0 0 260 460" role="img" aria-label="Plantar sensor map: eight force-sensitive resistors arranged across a foot outline in rearfoot, midfoot and forefoot groups, with a centre-of-pressure trajectory tracing heel to toe.">
+      <svg viewBox="0 0 300 470" role="img" aria-label="Plantar sensor map: eight force-sensitive resistors arranged across a foot outline in rearfoot, midfoot and forefoot groups, with a centre-of-pressure trajectory tracing from heel strike to toe-off.">
         <!-- toes -->
-        <ellipse class="sole" cx="72.5" cy="55" rx="24" ry="28"/>
-        <ellipse class="sole" cx="114.5" cy="48.5" rx="16.5" ry="20"/>
-        <ellipse class="sole" cx="144.5" cy="52.5" rx="15" ry="19"/>
-        <ellipse class="sole" cx="171.5" cy="62" rx="14" ry="17.5"/>
-        <ellipse class="sole" cx="195" cy="78" rx="12.5" ry="15"/>
+        <ellipse class="sole" cx="95"  cy="126" rx="22"   ry="27"/>
+        <ellipse class="sole" cx="133" cy="133" rx="15"   ry="20"/>
+        <ellipse class="sole" cx="160" cy="136" rx="13.5" ry="18"/>
+        <ellipse class="sole" cx="182" cy="142" rx="12.5" ry="16"/>
+        <ellipse class="sole" cx="199" cy="152" rx="11"   ry="13.5"/>
 
-        <!-- sole outline -->
-        <path class="sole" d="M125,424
-          C168,432 197,420 209,359
-          C215,325 206,305 203,251
-          C200,215 194,210 197,150
-          C199,120 203,110 192.5,82
-          C170,72 110,78 87.5,89
-          C70,96 62,112 62,129.5
-          C62,145 71,145 83,197
-          C92,235 98,240 95,291.5
-          C93,330 83,370 83,399.5
-          C83,415 100,428 125,424 Z"/>
+        <!-- sole -->
+        <path class="sole" d="M140,430
+          C170,432 187,416 194,392
+          C202,366 200,348 198,320
+          C196,292 192,268 192,240
+          C192,214 196,196 194,180
+          C192,171 190,167 182,165
+          C160,160 128,156 108,157
+          C96,158 88,166 86,178
+          C84,192 88,197 96,212
+          C104,232 112,250 112,278
+          C112,310 108,338 104,362
+          C100,388 108,430 140,430 Z"/>
 
-        <!-- CoP trajectory -->
-        <path class="cop" d="M137,389 C142,362 143,350 143,332
-          C143,305 136,285 134,264
-          C131,238 128,218 125,197
-          C122,175 119,162 117,150
-          C115,138 112,130 110,123"/>
+        <!-- centre of pressure -->
+        <path class="cop" d="M142,404
+          C146,388 146,372 145,352
+          C144,330 143,310 142,290
+          C140,268 138,257 135,240
+          C132,222 130,211 127,196
+          C125,188 124,184 122,179"/>
 
-        <!-- sensors: rear -->
-        <circle class="sensor r" cx="132.5" cy="393" r="5" style="animation-delay:0s"/>
-        <circle class="sensor r" cx="170" cy="359" r="5" style="animation-delay:.18s"/>
-        <circle class="sensor r" cx="102.5" cy="359" r="5" style="animation-delay:.18s"/>
-        <!-- sensors: mid -->
-        <circle class="sensor m" cx="177.5" cy="264.5" r="5" style="animation-delay:.85s"/>
-        <circle class="sensor m" cx="102.5" cy="264.5" r="5" style="animation-delay:.85s"/>
-        <!-- sensors: fore -->
-        <circle class="sensor f" cx="80" cy="143" r="5" style="animation-delay:1.6s"/>
-        <circle class="sensor f" cx="132.5" cy="123" r="5" style="animation-delay:1.6s"/>
-        <circle class="sensor f" cx="177.5" cy="136" r="5" style="animation-delay:1.75s"/>
+        <!-- sensors -->
+        <circle class="sensor r" cx="140" cy="400" r="5" style="animation-delay:0s"/>
+        <circle class="sensor r" cx="168" cy="372" r="5" style="animation-delay:.18s"/>
+        <circle class="sensor r" cx="120" cy="372" r="5" style="animation-delay:.18s"/>
+        <circle class="sensor m" cx="170" cy="280" r="5" style="animation-delay:.85s"/>
+        <circle class="sensor m" cx="130" cy="285" r="5" style="animation-delay:.85s"/>
+        <circle class="sensor f" cx="106" cy="203" r="5" style="animation-delay:1.6s"/>
+        <circle class="sensor f" cx="146" cy="186" r="5" style="animation-delay:1.6s"/>
+        <circle class="sensor f" cx="180" cy="196" r="5" style="animation-delay:1.75s"/>
 
-        <text class="phase" x="196" y="400">HEEL STRIKE</text>
-        <text class="phase" x="14" y="120">TOE-OFF</text>
+        <!-- phase labels, anchored inside the viewBox -->
+        <text class="phase" x="292" y="420" text-anchor="end">HEEL STRIKE</text>
+        <text class="phase" x="8"   y="118" text-anchor="start">TOE-OFF</text>
       </svg>
       <p class="fig-cap"><b>Fig. 1</b> — Eight-sensor plantar layout and centre-of-pressure trajectory from my final year project. The trace is what the device reconstructs from eight cheap resistors: where your weight actually is, moment by moment, as you walk.</p>
     </div>
@@ -488,7 +492,7 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
           <p class="stage-n"><b>02</b><span></span>Manufacture</p>
           <h4>Two parts, so one variable moves at a time</h4>
           <p>The platform prints as two pieces in TPU 90A that slot together: a base matched to the foot, and a removable sensing plate carrying the eight FSRs in open cavities. Nothing is printed over a sensor, so none of them start pre-loaded.</p>
-          <p>That split is what made the study workable. Changing contact geometry, or replacing a failed FSR, means reprinting one small plate instead of the whole platform — so a single variable moves while everything else stays identical. Velcro straps hold the assembly to the foot, and it can be taken off and refitted without disturbing sensor position.</p>
+          <p>That split is what made the study workable. A failed FSR just means separating the two halves and swapping the sensor — no reprinting at all. Testing a different contact geometry means reprinting only the top plate, so one variable moves while the base, the fit and the sensor positions stay exactly as they were. Velcro straps hold the assembly to the foot, and it can be taken off and refitted without disturbing sensor position.</p>
         </div>
       </div>
 
@@ -521,7 +525,7 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
       </div>
 
       <div class="stage">
-        <div class="stage-media">
+        <div class="stage-media pair tall">
           <button class="shot" type="button" data-cap="Static load map — normalised distribution across a 20 s standing trial">
             <img src="img/load-heatmap.jpg" alt="Normalised heatmap of static plantar load distribution across the eight sensing locations." loading="lazy" decoding="async">
           </button>
@@ -599,7 +603,7 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
       </div>
 
       <div class="stage">
-        <div class="stage-media">
+        <div class="stage-media pair">
           <button class="shot" type="button" data-cap="Training — precision, recall and mAP across 80 epochs">
             <img src="img/training-curves.jpg" alt="Training curves showing precision, recall, mAP50 and mAP50-95 rising across 80 epochs." loading="lazy" decoding="async">
           </button>
