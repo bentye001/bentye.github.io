@@ -170,35 +170,87 @@ section{padding:clamp(56px,8vw,104px) 0;border-top:1px solid var(--rule)}
 .focus-grid p:last-child{margin-bottom:0}
 
 /* ---------- projects ---------- */
-.proj{background:var(--card);border:1px solid var(--rule);margin-bottom:22px;transition:border-color .2s ease,transform .2s ease}
-.proj:hover{border-color:var(--navy);transform:translateY(-2px)}
+.proj{background:var(--card);border:1px solid var(--rule);margin-bottom:clamp(28px,4vw,52px)}
 .proj:last-child{margin-bottom:0}
-.proj-head{padding:clamp(22px,3.2vw,34px);border-bottom:1px solid var(--rule)}
+.proj-head{padding:clamp(26px,4vw,46px) clamp(26px,4vw,46px) clamp(22px,3vw,34px)}
 .proj-tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--signal);margin:0 0 12px}
-.proj-head h3{font-family:var(--display);font-weight:700;font-size:clamp(21px,2.7vw,29px);letter-spacing:-.02em;line-height:1.15;margin:0 0 12px}
-.proj-head p{margin:0;color:#3A465F;max-width:60ch}
+.proj-head h3{font-family:var(--display);font-weight:700;font-size:clamp(23px,3vw,34px);letter-spacing:-.025em;line-height:1.12;margin:0 0 14px;max-width:24ch}
+.proj-head p{margin:0;color:#3A465F;max-width:62ch;font-size:clamp(16px,1.7vw,18px)}
 
-.proj-body{display:grid;grid-template-columns:minmax(0,265px) 1fr}
+/* horizontal spec strip */
+.specbar{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));
+  gap:1px;background:var(--rule);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+.specbar div{background:#FAFBFC;padding:16px 18px}
+.specbar dt{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--slate);margin-bottom:5px}
+.specbar dd{margin:0;font-family:var(--display);font-weight:500;font-size:14px;line-height:1.4}
+
+/* staged walkthrough */
+.stage{display:grid;grid-template-columns:1.1fr .9fr;border-bottom:1px solid var(--rule)}
+.stage-media{order:1;background:#EDF0F4;display:grid;gap:1px;align-content:stretch}
+.stage-text{order:2;padding:clamp(26px,3.6vw,52px);display:flex;flex-direction:column;justify-content:center}
+.stage:nth-of-type(even) .stage-media{order:2}
+.stage:nth-of-type(even) .stage-text{order:1}
+@media(max-width:840px){
+  .stage{grid-template-columns:1fr}
+  .stage-media,.stage:nth-of-type(even) .stage-media{order:1}
+  .stage-text,.stage:nth-of-type(even) .stage-text{order:2}
+}
+.stage-n{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--slate);margin:0 0 14px;display:flex;align-items:center;gap:11px;
+}
+.stage-n b{color:var(--signal);font-weight:400}
+.stage-n span{flex:1;height:1px;background:var(--rule);max-width:70px}
+.stage-text h4{
+  font-family:var(--display);font-weight:600;font-size:clamp(18px,2.1vw,23px);
+  letter-spacing:-.015em;line-height:1.2;margin:0 0 14px;
+}
+.stage-text p{margin:0 0 14px;font-size:16.5px;line-height:1.6;color:#33405A}
+.stage-text p:last-child{margin-bottom:0}
+.stage-text em{font-style:italic}
+
+.shot{margin:0;background:var(--card);cursor:zoom-in;border:none;padding:0;width:100%;font:inherit;display:block;position:relative;overflow:hidden}
+.shot img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,0,.2,1)}
+.shot:hover img{transform:scale(1.035)}
+.shot::after{
+  content:"⤢";position:absolute;top:14px;right:14px;
+  width:30px;height:30px;border-radius:50%;background:rgba(16,25,46,.55);color:#fff;
+  font-size:13px;line-height:30px;text-align:center;opacity:0;transition:opacity .3s ease;
+}
+.shot:hover::after{opacity:1}
+.shot:focus-visible{outline:3px solid var(--signal);outline-offset:-3px}
+
+/* closing block */
+.outcome{padding:clamp(26px,4vw,52px);display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(24px,4vw,52px)}
+@media(max-width:840px){.outcome{grid-template-columns:1fr;gap:22px}}
+.outcome h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);font-weight:400;margin:0}
+.outcome ul{margin:0;padding:0;list-style:none}
+.outcome li{position:relative;padding-left:22px;margin-bottom:14px;font-size:16.5px;line-height:1.6}
+.outcome li:last-child{margin-bottom:0}
+.outcome li::before{content:"";position:absolute;left:0;top:.68em;width:9px;height:1.5px;background:var(--signal)}
+
+.metrics{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--rule);padding:20px clamp(26px,4vw,52px) clamp(26px,4vw,52px)}
+.metric{padding-right:30px;margin-right:30px;border-right:1px solid var(--rule)}
+.metric:last-child{border-right:none;padding-right:0;margin-right:0}
+.metric .n{font-family:var(--display);font-weight:700;font-size:26px;letter-spacing:-.02em;color:var(--signal);display:block;line-height:1.25}
+.metric .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--slate)}
+
+/* simple variant for projects without imagery */
+.proj-body{display:grid;grid-template-columns:minmax(0,265px) 1fr;border-top:1px solid var(--rule)}
 @media(max-width:820px){.proj-body{grid-template-columns:1fr}}
 .spec{border-right:1px solid var(--rule);padding:clamp(20px,3vw,30px);background:#FAFBFC}
 @media(max-width:820px){.spec{border-right:none;border-bottom:1px solid var(--rule)}}
 .spec dl{margin:0;display:grid;grid-template-columns:1fr;gap:13px}
 .spec dt{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--slate);margin-bottom:2px}
 .spec dd{margin:0;font-size:14.5px;line-height:1.45;font-family:var(--display);font-weight:500}
-
 .did{padding:clamp(20px,3vw,30px)}
 .did h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--slate);font-weight:400;margin:0 0 14px}
-.did h4.second{margin-top:24px}
 .did ul{margin:0;padding:0;list-style:none}
 .did li{position:relative;padding-left:22px;margin-bottom:12px;font-size:16px;line-height:1.55}
 .did li:last-child{margin-bottom:0}
 .did li::before{content:"";position:absolute;left:0;top:.62em;width:9px;height:1.5px;background:var(--signal)}
-
-.metrics{display:flex;flex-wrap:wrap;gap:0;margin-top:22px;border-top:1px solid var(--rule);padding-top:18px}
-.metric{padding-right:26px;margin-right:26px;border-right:1px solid var(--rule)}
-.metric:last-child{border-right:none;padding-right:0;margin-right:0}
-.metric .n{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:-.02em;color:var(--signal);display:block;line-height:1.2}
-.metric .l{font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--slate)}
 
 /* ---------- capabilities ---------- */
 .caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
@@ -255,12 +307,6 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
   opacity:0;transition:opacity .3s ease;
 }
 .shot:hover .frame::after{opacity:1}
-.shot figcaption{
-  font-family:var(--mono);font-size:10.5px;line-height:1.45;letter-spacing:.02em;
-  color:var(--slate);padding:11px 13px 13px;flex:1;
-}
-.shot figcaption b{display:block;color:var(--ink);font-weight:500;margin-bottom:3px}
-.shot:hover figcaption b{color:var(--signal)}
 .shot:focus-visible{outline:2px solid var(--signal);outline-offset:-2px}
 
 /* ---------- lightbox ---------- */
@@ -309,7 +355,7 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
 <div class="hero">
   <div class="wrap hero-grid">
     <div>
-      <p class="eyebrow"><span class="bar">///</span> BEng Mechanical Engineering, UEA &nbsp;·&nbsp; Derby, UK</p>
+      <p class="eyebrow"><span class="bar">///</span> BEng Mechanical Engineering, UEA &nbsp;·&nbsp; Norwich, UK</p>
       <h1>Ben Tye<span class="line2">builds devices that measure people.</span></h1>
       <p class="lede">Mechanical engineer working towards medical devices. My final year was spent proving that <b>a £2 sensor can be tuned by the structure printed around it</b> — that geometry, not just electronics, is where sensing performance is won.</p>
       <div class="actions">
@@ -406,63 +452,102 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
         <h3>Tuning a £2 sensor with the structure printed around it</h3>
         <p>Diabetic neuropathy removes the warning. Patients cannot feel the sustained pressure that turns into a foot ulcer, and the systems that could tell them are laboratory-bound or cost thousands. I asked whether an ordinary force-sensitive resistor could be made good enough by changing the 3D printed structure sitting on top of it.</p>
       </div>
-      <div class="media m3">
-        <button class="shot" type="button">
-          <span class="frame"><img src="img/platform-render.jpg" alt="Rendered view of the anatomically conformal 3D printed plantar platform." loading="lazy" decoding="async"></span>
-          <figcaption><b>Wearable platform</b>Modelled around a LiDAR scan of my own foot</figcaption>
-        </button>
-        <button class="shot" type="button">
-          <span class="frame"><img src="img/contact-geometry.jpg" alt="Sliced print preview of the removable sensing plate showing the eight raised sensor contact geometries." loading="lazy" decoding="async"></span>
-          <figcaption><b>Contact geometry</b>Sliced for print, TPU 90A, gyroid infill</figcaption>
-        </button>
-        <button class="shot" type="button">
-          <span class="frame"><img src="img/pcb-layout.jpg" alt="Custom PCB layout showing the ESP32-S3 footprint, multiplexer and eight fixed resistor and FSR input pairs." loading="lazy" decoding="async"></span>
-          <figcaption><b>Custom PCB</b>ESP32-S3, 74HC4051 MUX, 8 divider inputs</figcaption>
-        </button>
-        <button class="shot" type="button">
-          <span class="frame"><img src="img/calibration-jig.jpg" alt="Rendered calibration jig designed to apply controlled vertical loading to an embedded sensor test cube." loading="lazy" decoding="async"></span>
-          <figcaption><b>Calibration jig</b>Controlled vertical loading, 2.5 kg steps</figcaption>
-        </button>
-        <button class="shot" type="button">
-          <span class="frame"><img src="img/load-heatmap.jpg" alt="Normalised heatmap of static plantar load distribution across the eight sensing locations." loading="lazy" decoding="async"></span>
-          <figcaption><b>Static load map</b>Normalised distribution, 20 s standing trial</figcaption>
-        </button>
-        <button class="shot" type="button">
-          <span class="frame"><img src="img/cop-trajectory.jpg" alt="Mean centre of pressure trajectories for dome and puck geometries plotted over a foot outline." loading="lazy" decoding="async"></span>
-          <figcaption><b>CoP trajectory</b>Dome vs puck, averaged across steps</figcaption>
-        </button>
+
+      <dl class="specbar">
+        <div><dt>Sensing</dt><dd>8 × FSR 402, 10 kΩ dividers</dd></div>
+        <div><dt>Electronics</dt><dd>ESP32-S3, 74HC4051, custom PCB</dd></div>
+        <div><dt>Acquisition</dt><dd>12-bit ADC, 200 Hz, CSV</dd></div>
+        <div><dt>Structure</dt><dd>FDM, TPU 90A, gyroid infill</dd></div>
+        <div><dt>Design</dt><dd>Fusion 360, Blender, LiDAR</dd></div>
+        <div><dt>Analysis</dt><dd>Python, polynomial fitting</dd></div>
+      </dl>
+
+      <div class="stage">
+        <div class="stage-media">
+          <button class="shot" type="button" data-cap="Wearable platform — modelled around a LiDAR scan of my own foot">
+            <img src="img/platform-render.jpg" alt="Rendered view of the anatomically conformal 3D printed plantar platform." loading="lazy" decoding="async">
+          </button>
+        </div>
+        <div class="stage-text">
+          <p class="stage-n"><b>01</b><span></span>Design</p>
+          <h4>Start from a real foot, not a generic last</h4>
+          <p>I captured my own plantar surface with LiDAR photogrammetry, then rebuilt the mesh in Blender — Fusion 360 fought the organic geometry, and the mid-plane of the sole needed the most repair.</p>
+          <p>Reference measurements verified scale before export, and the cleaned mesh went back into Fusion as a cutting body. The result conforms to actual anatomy, which matters: load has to reach the sensors the way it would in a real shoe.</p>
+        </div>
       </div>
-      <div class="proj-body">
-        <div class="spec">
-          <dl>
-            <div><dt>Sensing</dt><dd>8 × FSR 402 in voltage dividers, 10 kΩ fixed</dd></div>
-            <div><dt>Electronics</dt><dd>ESP32-S3, 74HC4051 multiplexer, custom PCB</dd></div>
-            <div><dt>Acquisition</dt><dd>12-bit ADC, 200 Hz across 8 channels, CSV logging</dd></div>
-            <div><dt>Structure</dt><dd>FDM in TPU 90A, gyroid infill, cavity-embedded sensors</dd></div>
-            <div><dt>Design</dt><dd>Fusion 360, Blender, LiDAR foot scan</dd></div>
-            <div><dt>Analysis</dt><dd>Python, Excel, polynomial calibration</dd></div>
-          </dl>
+
+      <div class="stage">
+        <div class="stage-media">
+          <button class="shot" type="button" data-cap="Contact geometry — sliced for print in TPU 90A with gyroid infill">
+            <img src="img/contact-geometry.jpg" alt="Sliced print preview of the removable sensing plate showing the eight raised sensor contact geometries." loading="lazy" decoding="async">
+          </button>
         </div>
-        <div class="did">
-          <h4>What I built</h4>
-          <ul>
-            <li>Scanned my own foot with LiDAR photogrammetry, cleaned the mesh in Blender and used it as a cutting body in Fusion 360 to produce an anatomically conformal wearable platform.</li>
-            <li>Designed and had fabricated a custom PCB carrying an ESP32-S3 and an eight-channel multiplexer, after validating the divider circuit on breadboard first.</li>
-            <li>Built a loading jig and calibrated three contact geometries across four infill densities, applying known masses in 2.5 kg steps to roughly 280 kPa.</li>
-            <li>Ran static and dynamic gait trials on the integrated device, reconstructing regional loading and centre-of-pressure trajectories from normalised sensor output.</li>
-          </ul>
-          <h4 class="second">What it showed</h4>
-          <ul>
-            <li>Contact geometry changes the <em>shape</em> of the FSR response; infill density mostly changes its magnitude. The dome geometry gave the best balance of activation threshold, sensitivity and saturation, so it went into the full-scale build.</li>
-            <li>The device resolved heel strike, mid-stance and toe-off cleanly, and produced plausible centre-of-pressure paths.</li>
-            <li>The calibration did not transfer. Polynomial fits that worked on the test cubes produced physically impossible pressures once the sensors were embedded in the full insole, so the final analysis is comparative rather than absolute. Fixing that is the first thing I would do next.</li>
-          </ul>
-          <div class="metrics">
-            <div class="metric"><span class="n">0.998</span><span class="l">R², dome fit</span></div>
-            <div class="metric"><span class="n">200 Hz</span><span class="l">8-channel sampling</span></div>
-            <div class="metric"><span class="n">77%</span><span class="l">Report grade</span></div>
-          </div>
+        <div class="stage-text">
+          <p class="stage-n"><b>02</b><span></span>Manufacture</p>
+          <h4>Make the structure part of the sensor</h4>
+          <p>The sensing plate prints separately in TPU 90A and drops into the platform, with each FSR seated in a cavity rather than printed over. Nothing is pre-loaded, and a failed sensor can be swapped without reprinting anything.</p>
+          <p>Three contact geometries — flat dome, dome and puck — were printed across four infill densities. These are the independent variables of the whole study: not comfort settings, but the thing that decides how load arrives at the sensing area.</p>
         </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-media">
+          <button class="shot" type="button" data-cap="Custom PCB — ESP32-S3, 74HC4051 multiplexer and eight divider inputs">
+            <img src="img/pcb-layout.jpg" alt="Custom PCB layout showing the ESP32-S3 footprint, multiplexer and eight fixed resistor and FSR input pairs." loading="lazy" decoding="async">
+          </button>
+        </div>
+        <div class="stage-text">
+          <p class="stage-n"><b>03</b><span></span>Electronics</p>
+          <h4>Eight sensors, one ADC channel</h4>
+          <p>Each FSR sits in a voltage divider against a 10 kΩ fixed resistor, picked off the datasheet curves as the best compromise between low-load sensitivity and not saturating early.</p>
+          <p>A 74HC4051 multiplexer lets all eight share a single ADC input on an ESP32-S3, which keeps the board small enough to live in a shoe. I proved the circuit on breadboard before committing to the PCB.</p>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-media">
+          <button class="shot" type="button" data-cap="Calibration jig — controlled vertical loading in 2.5 kg steps">
+            <img src="img/calibration-jig.jpg" alt="Rendered calibration jig designed to apply controlled vertical loading to an embedded sensor test cube." loading="lazy" decoding="async">
+          </button>
+        </div>
+        <div class="stage-text">
+          <p class="stage-n"><b>04</b><span></span>Calibration</p>
+          <h4>Known masses, controlled loading</h4>
+          <p>A custom jig applies vertical load to a printed test cube containing an embedded sensor, in 2.5 kg steps up to 12.5 kg — roughly 280 kPa once converted through the known contact area.</p>
+          <p>Output was sampled at 200 Hz and averaged over five seconds per step to settle the signal. Third-order polynomials fitted the non-linear response, the dome geometry reaching R² = 0.998.</p>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-media">
+          <button class="shot" type="button" data-cap="Static load map — normalised distribution across a 20 s standing trial">
+            <img src="img/load-heatmap.jpg" alt="Normalised heatmap of static plantar load distribution across the eight sensing locations." loading="lazy" decoding="async">
+          </button>
+          <button class="shot" type="button" data-cap="Centre of pressure — dome versus puck, averaged across steps">
+            <img src="img/cop-trajectory.jpg" alt="Mean centre of pressure trajectories for dome and puck geometries plotted over a foot outline." loading="lazy" decoding="async">
+          </button>
+        </div>
+        <div class="stage-text">
+          <p class="stage-n"><b>05</b><span></span>Results</p>
+          <h4>Geometry changes where the load goes</h4>
+          <p>Standing trials showed the puck concentrating load at the rear and forefoot while the dome spread it more evenly — geometry altering <em>distribution</em>, not just magnitude.</p>
+          <p>Walking trials resolved heel strike, mid-stance and toe-off as distinct events, with centre-of-pressure paths tracking heel to toe in the shape you would expect from a healthy gait.</p>
+        </div>
+      </div>
+
+      <div class="outcome">
+        <h4>What it showed</h4>
+        <ul>
+          <li>Contact geometry changes the <em>shape</em> of the FSR response; infill density mostly changes its magnitude. The dome gave the best balance of activation threshold, sensitivity and saturation, so it went into the full-scale build.</li>
+          <li>Step-to-step repeatability landed between 16% and 36% CV, against roughly 25% for commercial systems — some regions comparable, others not yet.</li>
+          <li>The calibration did not transfer. Polynomial fits that worked on the test cubes produced physically impossible pressures once the sensors were embedded in the full insole, so the final analysis is comparative rather than absolute. Fixing that is the first thing I would do next.</li>
+        </ul>
+      </div>
+      <div class="metrics">
+        <div class="metric"><span class="n">0.998</span><span class="l">R², dome fit</span></div>
+        <div class="metric"><span class="n">200 Hz</span><span class="l">8-channel sampling</span></div>
+        <div class="metric"><span class="n">280 kPa</span><span class="l">Calibrated range</span></div>
+        <div class="metric"><span class="n">77%</span><span class="l">Report grade</span></div>
       </div>
     </article>
 
@@ -473,55 +558,74 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
         <h3>Smart Pillbox System</h3>
         <p>Pill organisers and phone alarms remind you. None of them know whether you actually took anything. This prototype tries to verify removal instead of trusting it, using a camera to count what is left and a load cell to notice what left.</p>
       </div>
-      <div class="media m2">
-        <button class="shot" type="button">
-          <span class="frame"><img src="img/pillbox-prototype.jpg" alt="Photograph of the assembled Smart Pillbox prototype: 3D printed enclosure, Raspberry Pi, HX711 breakout and breadboard wiring." loading="lazy" decoding="async"></span>
-          <figcaption><b>The prototype</b>Printed enclosure, Pi 3, HX711, HQ camera</figcaption>
-        </button>
-        <button class="shot" type="button">
-          <span class="frame"><img src="img/pill-detection.jpg" alt="Camera image after YOLOv8 inference, with bounding boxes and confidence scores over 31 tablets." loading="lazy" decoding="async"></span>
-          <figcaption><b>Live inference</b>31 tablets detected on-device via NCNN</figcaption>
-        </button>
-        <button class="shot" type="button">
-          <span class="frame"><img src="img/training-curves.jpg" alt="Training curves showing precision, recall, mAP50 and mAP50-95 rising across 80 epochs." loading="lazy" decoding="async"></span>
-          <figcaption><b>Training</b>Precision, recall and mAP over 80 epochs</figcaption>
-        </button>
-        <button class="shot" type="button">
-          <span class="frame"><img src="img/confusion-matrix.jpg" alt="Normalised confusion matrix for the tablet, capsule and background classes." loading="lazy" decoding="async"></span>
-          <figcaption><b>Confusion matrix</b>Tablets and capsules, normalised</figcaption>
-        </button>
+
+      <dl class="specbar">
+        <div><dt>Compute</dt><dd>Raspberry Pi 3</dd></div>
+        <div><dt>Vision</dt><dd>Pi HQ camera, YOLOv8-nano</dd></div>
+        <div><dt>Weight</dt><dd>Load cell via HX711</dd></div>
+        <div><dt>Trigger</dt><dd>Fusion 360 lid latch on GPIO</dd></div>
+        <div><dt>Feedback</dt><dd>LED and active buzzer</dd></div>
+        <div><dt>Code</dt><dd>Python, gpiozero, Picamera2</dd></div>
+      </dl>
+
+      <div class="stage">
+        <div class="stage-media">
+          <button class="shot" type="button" data-cap="The prototype — printed enclosure, Raspberry Pi 3, HX711 and HQ camera">
+            <img src="img/pillbox-prototype.jpg" alt="Photograph of the assembled Smart Pillbox prototype: 3D printed enclosure, Raspberry Pi, HX711 breakout and breadboard wiring." loading="lazy" decoding="async">
+          </button>
+        </div>
+        <div class="stage-text">
+          <p class="stage-n"><b>01</b><span></span>Build</p>
+          <h4>Event-driven, not always watching</h4>
+          <p>A latch designed in Fusion 360 trips a GPIO button when the lid closes, and that single event starts the whole measurement sequence — capture, weigh, decide. Nothing polls continuously.</p>
+          <p>The load cell reads through an HX711, zeroed at startup with a settling delay and ten averaged samples per reading, because a lid being pressed shut is exactly the kind of thing that spikes a load cell.</p>
+        </div>
       </div>
-      <div class="proj-body">
-        <div class="spec">
-          <dl>
-            <div><dt>Compute</dt><dd>Raspberry Pi 3</dd></div>
-            <div><dt>Vision</dt><dd>Pi HQ camera, YOLOv8-nano exported to NCNN</dd></div>
-            <div><dt>Weight</dt><dd>Load cell via HX711, 10-sample averaging</dd></div>
-            <div><dt>Trigger</dt><dd>Lid latch designed in Fusion 360 onto a GPIO button</dd></div>
-            <div><dt>Feedback</dt><dd>LED and active buzzer for missed-dose alerts</dd></div>
-            <div><dt>Code</dt><dd>Python, gpiozero, Picamera2, CSV logging</dd></div>
-          </dl>
+
+      <div class="stage">
+        <div class="stage-media">
+          <button class="shot" type="button" data-cap="Live inference — 31 tablets detected on-device via NCNN">
+            <img src="img/pill-detection.jpg" alt="Camera image after YOLOv8 inference, with bounding boxes and confidence scores over 31 tablets." loading="lazy" decoding="async">
+          </button>
         </div>
-        <div class="did">
-          <h4>What we built</h4>
-          <ul>
-            <li>Trained a YOLOv8-nano detector on 2,000+ labelled pill images over 80 epochs, then exported to NCNN so inference would run locally on the Pi rather than in the cloud.</li>
-            <li>Calibrated the load cell against a known mass and used 3D printed replica pills to set a per-pill mass threshold, so a real removal could be told apart from sensor drift.</li>
-            <li>Designed a lid latch in Fusion 360 that trips a GPIO button on closure, making the whole measurement sequence event-driven instead of polling continuously.</li>
-            <li>Logged every trial to CSV — baseline, updated reading, difference, decision — so the decision logic could be audited afterwards rather than just trusted.</li>
-          </ul>
-          <h4 class="second">What it showed</h4>
-          <ul>
-            <li>The detector reached 90% precision and 83.6% recall, strong enough for pill counting, though mAP50-95 of 57% showed it was better at finding pills than at localising their edges precisely.</li>
-            <li>Real-time sensor fusion was beyond the Pi 3. The camera and load cell were validated as independent subsystems, and the honest conclusion was that agreement between them should raise confidence rather than force a decision.</li>
-            <li>The system can confirm that medication left the box. It cannot confirm that anyone swallowed it, and we said so.</li>
-          </ul>
-          <div class="metrics">
-            <div class="metric"><span class="n">90%</span><span class="l">Precision</span></div>
-            <div class="metric"><span class="n">83.6%</span><span class="l">Recall</span></div>
-            <div class="metric"><span class="n">83%</span><span class="l">Project grade</span></div>
-          </div>
+        <div class="stage-text">
+          <p class="stage-n"><b>02</b><span></span>Vision</p>
+          <h4>Counting pills on a Raspberry Pi</h4>
+          <p>I trained a YOLOv8-nano detector on 2,000+ labelled images across 80 epochs, then exported it to NCNN so inference runs on the Pi itself rather than in the cloud — a medical device should not need a network to work.</p>
+          <p>Inference runs at 320 px with a 0.6 confidence floor to suppress weak predictions, and the bounding box count becomes the pill count feeding the decision logic.</p>
         </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-media">
+          <button class="shot" type="button" data-cap="Training — precision, recall and mAP across 80 epochs">
+            <img src="img/training-curves.jpg" alt="Training curves showing precision, recall, mAP50 and mAP50-95 rising across 80 epochs." loading="lazy" decoding="async">
+          </button>
+          <button class="shot" type="button" data-cap="Confusion matrix — tablets and capsules, normalised">
+            <img src="img/confusion-matrix.jpg" alt="Normalised confusion matrix for the tablet, capsule and background classes." loading="lazy" decoding="async">
+          </button>
+        </div>
+        <div class="stage-text">
+          <p class="stage-n"><b>03</b><span></span>Evaluation</p>
+          <h4>Both failure directions matter</h4>
+          <p>A false positive suggests pills remain after they were taken; a missed detection implies a dose was taken when it was not. Precision and recall are not interchangeable here, so both were tracked throughout training.</p>
+          <p>Every trial was logged to CSV — baseline, updated reading, difference, decision — so the logic could be audited afterwards rather than simply trusted.</p>
+        </div>
+      </div>
+
+      <div class="outcome">
+        <h4>What it showed</h4>
+        <ul>
+          <li>90% precision and 83.6% recall, strong enough for pill counting, though mAP50-95 of 57% showed the model was better at finding pills than at localising their edges precisely.</li>
+          <li>Real-time sensor fusion was beyond the Pi 3. The camera and load cell were validated as independent subsystems, and the honest conclusion was that agreement between them should raise confidence rather than force a decision.</li>
+          <li>The system can confirm that medication left the box. It cannot confirm anyone swallowed it, and we said so.</li>
+        </ul>
+      </div>
+      <div class="metrics">
+        <div class="metric"><span class="n">90%</span><span class="l">Precision</span></div>
+        <div class="metric"><span class="n">83.6%</span><span class="l">Recall</span></div>
+        <div class="metric"><span class="n">2,000+</span><span class="l">Training images</span></div>
+        <div class="metric"><span class="n">83%</span><span class="l">Project grade</span></div>
       </div>
     </article>
 
@@ -676,7 +780,7 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
 <footer>
   <div class="wrap fin">
     <span>Ben Tye — Mechanical Engineering</span>
-    <span>Derby, United Kingdom</span>
+    <span>Norwich, United Kingdom</span>
   </div>
 </footer>
 
@@ -712,11 +816,10 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
       last  = null;
 
   function open(shot){
-    var img = shot.querySelector('img'),
-        cap = shot.querySelector('figcaption');
+    var img = shot.querySelector('img');
     lbImg.src = img.src;
     lbImg.alt = img.alt;
-    lbCap.innerHTML = cap.innerHTML;
+    lbCap.textContent = shot.getAttribute('data-cap') || img.alt;
     lb.classList.add('on');
     document.body.style.overflow = 'hidden';
     last = shot;
