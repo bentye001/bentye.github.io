@@ -334,6 +334,18 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
 .lb .x:hover{background:var(--signal);border-color:var(--signal)}
 
 /* editable placeholder marker — delete this rule once everything is filled in */
+/* ---------- engineering drawings: show the whole sheet, never crop ---------- */
+.shot.dwg{background:#fff}
+.shot.dwg img{object-fit:contain;aspect-ratio:4/3;background:#fff;padding:8px}
+.shot.dwg:hover img{transform:none}
+.practice-head{padding:clamp(40px,5vw,72px) 0 0}
+.practice-note{max-width:70ch;color:var(--slate);margin:14px 0 0;font-size:16.5px;line-height:1.6}
+.practice{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+.practice figure{margin:0;border:1px solid var(--rule);background:var(--card)}
+.practice h4{font-family:var(--display);font-weight:600;font-size:16px;margin:0;padding:12px 14px 2px;color:var(--ink)}
+.practice figcaption{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate);padding:0 14px 14px}
+@media(max-width:820px){.practice{grid-template-columns:1fr}}
+
 .todo{background:rgba(200,29,107,.1);border-bottom:1px dashed var(--signal);padding:0 3px}
 </style>
 </head>
@@ -445,7 +457,7 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
   <div class="wrap">
     <div class="reveal">
       <p class="eyebrow"><span class="bar">///</span> Selected work</p>
-      <h2 class="sec-title">Three projects</h2>
+      <h2 class="sec-title">Four projects</h2>
       <p class="sec-note">Written the way I would hand them over to another engineer: what the problem was, what the build consisted of, what came out, and what did not work.</p>
     </div>
 
@@ -483,9 +495,12 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
       </div>
 
       <div class="stage flip">
-        <div class="stage-media">
+        <div class="stage-media pair">
           <button class="shot" type="button" data-cap="Contact geometry — sliced for print in TPU 90A with gyroid infill">
             <img src="img/contact-geometry.jpg" alt="Sliced print preview of the removable sensing plate showing the eight raised sensor contact geometries." loading="lazy" decoding="async">
+          </button>
+          <button class="shot dwg" type="button" data-cap="Prototype 2 &mdash; two-part build holding every sensor at a uniform level">
+            <img src="img/insole-prototype2.png" alt="Isometric drawing of the two-part 3D printed insole platform, the upper part shown with an internal lattice." loading="lazy" decoding="async">
           </button>
         </div>
         <div class="stage-text">
@@ -575,9 +590,12 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
       </dl>
 
       <div class="stage">
-        <div class="stage-media">
+        <div class="stage-media pair">
           <button class="shot" type="button" data-cap="The prototype — printed enclosure, Raspberry Pi 3, HX711 and HQ camera">
             <img src="img/pillbox-prototype.jpg" alt="Photograph of the assembled Smart Pillbox prototype: 3D printed enclosure, Raspberry Pi, HX711 breakout and breadboard wiring." loading="lazy" decoding="async">
+          </button>
+          <button class="shot dwg" type="button" data-cap="Assembly sheet &mdash; ten-item parts list covering printed parts and electronics">
+            <img src="img/pillbox-assembly.png" alt="Isometric assembly drawing of the pillbox with a ten-item parts list covering Raspberry Pi, HQ camera, load cell, switch, LED, box, lid, mount, base and camera enclosure." loading="lazy" decoding="async">
           </button>
         </div>
         <div class="stage-text">
@@ -635,7 +653,85 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
       </div>
     </article>
 
-    <!-- P3: Formula Student -->
+    <!-- P3: Knuckle joint -->
+    <article class="proj reveal">
+      <div class="proj-head">
+        <p class="proj-tag">Design &amp; detailing &middot; Stress Analysis and Design &middot; 2025/26</p>
+        <h3>A pin joint taken from model to manufacturable drawing set</h3>
+        <p>A CAD model is not a specification. A machinist needs to know which surfaces matter, how far each feature is allowed to wander and how smooth it has to be. This one went the whole way: three parts modelled as a constrained assembly, detailed across four sheets with datums, geometric tolerances and surface finish, then loaded in a stress study to check the sections would hold.</p>
+      </div>
+
+      <dl class="specbar">
+        <div><dt>Parts</dt><dd>Fork, single eye, pin</dd></div>
+        <div><dt>Material</dt><dd>Steel, 415 MPa yield</dd></div>
+        <div><dt>CAD</dt><dd>Fusion 360, constrained assembly</dd></div>
+        <div><dt>Drawings</dt><dd>4 sheets, balloons and parts list</dd></div>
+        <div><dt>Tolerancing</dt><dd>Datum frames, position, Ra callouts</dd></div>
+        <div><dt>Analysis</dt><dd>Static stress, parabolic mesh</dd></div>
+      </dl>
+
+      <div class="stage">
+        <div class="stage-media">
+          <button class="shot dwg" type="button" data-cap="Sheet 1/4 &mdash; assembly, balloon references and parts list">
+            <img src="img/knuckle-assembly.png" alt="Isometric assembly drawing of a knuckle joint with a parts list naming fork, single eye and pin, all steel." loading="lazy" decoding="async">
+          </button>
+        </div>
+        <div class="stage-text">
+          <p class="stage-n"><b>01</b><span></span>Assembly</p>
+          <h4>Three parts that have to stay coincident</h4>
+          <p>The fork, single eye and pin were modelled separately and constrained as an assembly, so the joint articulates in the model and mating features move together when a dimension changes upstream rather than quietly drifting apart.</p>
+          <p>The front sheet carries balloon references to a parts list naming every component and its material, so the set can be read without opening the model.</p>
+        </div>
+      </div>
+
+      <div class="stage flip">
+        <div class="stage-media">
+          <button class="shot dwg" type="button" data-cap="Sheet 2/4 &mdash; fork detail, datums A to E with position and surface finish callouts">
+            <img src="img/knuckle-fork-detail.png" alt="Detail drawing of the knuckle joint fork showing dimensions, datum symbols, a position tolerance and surface finish callouts." loading="lazy" decoding="async">
+          </button>
+        </div>
+        <div class="stage-text">
+          <p class="stage-n"><b>02</b><span></span>Detailing</p>
+          <h4>Saying which surfaces actually matter</h4>
+          <p>Each part carries its own datum reference frame. On the fork, the eye's outer surface is primary and the two flats secondary and tertiary, and the &#8960;20 bore is located to them with a &#8960;0.25 position tolerance &mdash; its axis has to sit inside a cylinder a quarter of a millimetre across.</p>
+          <p>The &#8960;21 rod is controlled separately, so the bore is located from the eye's own form while the rod's axis is tied back to the flats. Surface finish is called out only where it earns it: Ra 1.2 on the bearing faces, Ra 1.6 elsewhere.</p>
+        </div>
+      </div>
+
+      <div class="stage">
+        <div class="stage-media pair">
+          <button class="shot" type="button" data-cap="Von Mises stress &mdash; peak 149 MPa, in the rods rather than the joint">
+            <img src="img/knuckle-fea-vonmises.jpg" alt="Von Mises stress plot of the knuckle joint under opposing axial loads, with peak stress in the rod sections." loading="lazy" decoding="async">
+          </button>
+          <button class="shot" type="button" data-cap="Safety factor &mdash; minimum 2.79 against a 415 MPa yield">
+            <img src="img/knuckle-fea-safety.jpg" alt="Safety factor plot of the knuckle joint, minimum 2.79." loading="lazy" decoding="async">
+          </button>
+        </div>
+        <div class="stage-text">
+          <p class="stage-n"><b>03</b><span></span>Analysis</p>
+          <h4>Checking the sections before trusting them</h4>
+          <p>The assembly was loaded with opposing 35 kN axial forces against a fixed constraint, meshed with parabolic elements and refined adaptively on von Mises stress so the mesh gets finer where the answer is changing fastest.</p>
+          <p>Peak stress is 149 MPa and it lands in the rod sections, not at the pin or the eye &mdash; the joint itself is not the weak point, which is the thing worth knowing before adding material anywhere.</p>
+        </div>
+      </div>
+
+      <div class="outcome">
+        <h4>What it showed</h4>
+        <ul>
+          <li>A minimum safety factor of 2.79 against a 415 MPa yield, with total displacement peaking at 0.068 mm, so the sections as drawn hold with margin rather than needing to be grown.</li>
+          <li>Load concentrates in the rods rather than at the pin, so stiffening the joint would have solved a problem that was not there.</li>
+          <li>The tolerancing is what I would change. A &plusmn;0.25 sits on nearly every dimension; in production that becomes a general tolerance note with explicit callouts only where function demands them. The pin and bore are both &#8960;20 nominal, so no clearance is designed in &mdash; a real part needs the fit specifying properly.</li>
+        </ul>
+      </div>
+      <div class="metrics">
+        <div class="metric"><span class="n">149 MPa</span><span class="l">Peak von Mises</span></div>
+        <div class="metric"><span class="n">2.79</span><span class="l">Min. safety factor</span></div>
+        <div class="metric"><span class="n">0.068 mm</span><span class="l">Max. displacement</span></div>
+        <div class="metric"><span class="n">4</span><span class="l">Drawing sheets</span></div>
+      </div>
+    </article>
+
+    <!-- P4: Formula Student -->
     <article class="proj reveal">
       <div class="proj-head">
         <p class="proj-tag">Team · Dec 2025 – May 2026</p>
@@ -657,11 +753,40 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
             <li>Helped set up the electronics and controls workstream from scratch, in a team with no previous car to work from.</li>
             <li>Researched and specified sensing and control approaches against Formula Student rules and the team's budget.</li>
             <li>Worked across sub-teams so the electronics decisions matched what the mechanical side was designing.</li>
-            <li><span class="todo">[Add one concrete thing you personally produced — a schematic, a harness layout, a component selection, a test.]</span></li>
+            <li>Set the early sensor selection and integration strategy the team built from &mdash; what the car would need to measure, and how those sensors would sit alongside what the mechanical sub-teams were designing.</li>
           </ul>
         </div>
       </div>
     </article>
+
+    <div class="reveal practice-head">
+      <p class="eyebrow"><span class="bar">///</span> CAD practice</p>
+      <h2 class="sec-title">Tutorial builds</h2>
+      <p class="practice-note">These are not my own designs. I worked through them from structured Fusion 360 tutorials to widen my modelling range &mdash; gear generation, multi-body assemblies and linkage mechanisms &mdash; and produced the drawing sets from the finished models. They are here to show what I can model and detail, not what I have specified.</p>
+      <div class="practice">
+        <figure>
+          <button class="shot dwg" type="button" data-cap="Three-shaft gearbox &mdash; 42, 36, 30 and 18 tooth spur cluster with a sliding dog">
+            <img src="img/practice-gearbox.png" alt="Isometric drawing of a gear cluster with 42, 36, 30 and 18 tooth spur gears and a dog." loading="lazy" decoding="async">
+          </button>
+          <h4>Three-shaft gearbox</h4>
+          <figcaption>Drive, lay and driven shafts &middot; sheet 7/8</figcaption>
+        </figure>
+        <figure>
+          <button class="shot dwg" type="button" data-cap="Articulated arm &mdash; eight components from base flange to end effector">
+            <img src="img/practice-arm.png" alt="Isometric assembly drawing of an articulated robotic arm with eight balloon-numbered components." loading="lazy" decoding="async">
+          </button>
+          <h4>Articulated arm</h4>
+          <figcaption>Rotary joints at each axis &middot; sheet 1/8</figcaption>
+        </figure>
+        <figure>
+          <button class="shot dwg" type="button" data-cap="Geared gripper &mdash; a pinion driving two spur gears through a four-bar linkage">
+            <img src="img/practice-gripper.png" alt="Isometric assembly drawing of a gripper driven by a pinion and two 24-tooth spur gears through a four-bar linkage." loading="lazy" decoding="async">
+          </button>
+          <h4>Geared gripper</h4>
+          <figcaption>Parallel jaw closure &middot; sheet 1/6</figcaption>
+        </figure>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -683,6 +808,8 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
           <li>FDM printing, including TPU and flexibles</li>
           <li>Wearable and enclosure design</li>
           <li>Design for print, tolerance and assembly</li>
+          <li>2D detail drawings &mdash; datums, GD&amp;T, tolerances, surface finish</li>
+          <li>Static stress FEA &mdash; mesh refinement, safety factor targets</li>
         </ul>
       </div>
       <div class="cap">
@@ -728,11 +855,11 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
     </div>
     <div class="tl reveal">
       <div class="row">
-        <div class="when"><span class="todo">[20XX]</span> – 2026</div>
+        <div class="when">2023 – 2026</div>
         <div class="what">
           <h3>BEng (Hons) Mechanical Engineering</h3>
           <p class="where">University of East Anglia — School of Engineering, Mathematics and Physics</p>
-          <p><span class="todo">[Degree classification]</span>. Final year weighted towards design, instrumentation and applied project work, including the plantar monitoring device and the Smart Pillbox System above.</p>
+          <p>First Class Honours, 76.3% weighted average, with the IMechE Best Student Certificate 2025 for top academic performance in year two. Final year weighted towards design, instrumentation and applied project work, including the plantar monitoring device and the Smart Pillbox System above.</p>
         </div>
       </div>
       <div class="row">
@@ -744,7 +871,7 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
         </div>
       </div>
       <div class="row">
-        <div class="when"><span class="todo">[Dates]</span></div>
+        <div class="when">Nov 2021 &ndash; May 2023</div>
         <div class="what">
           <h3>Customer Advisor</h3>
           <p class="where">B&amp;Q</p>
@@ -764,17 +891,17 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
     <h2 class="sec-title">Let's talk</h2>
     <p class="contact-lede">If you are hiring graduate engineers in medical devices, instrumentation or controls, I would like to hear from you.</p>
     <div class="clist">
-      <a class="clink" href="mailto:your@email.com">
+      <a class="clink" href="mailto:bentye2003@gmail.com">
         <span class="k">Email</span>
-        <span class="v todo">[your@email.com]</span>
+        <span class="v">bentye2003@gmail.com</span>
       </a>
-      <a class="clink" href="#">
+      <a class="clink" href="https://linkedin.com/in/ben-tye-1766b3273">
         <span class="k">LinkedIn</span>
-        <span class="v todo">[linkedin.com/in/…]</span>
+        <span class="v">linkedin.com/in/ben-tye-1766b3273</span>
       </a>
-      <a class="clink" href="#">
+      <a class="clink" href="https://github.com/bentye001">
         <span class="k">GitHub</span>
-        <span class="v todo">[github.com/…]</span>
+        <span class="v">github.com/bentye001</span>
       </a>
       <a class="clink" href="Ben-Tye-CV.pdf" download>
         <span class="k">Document</span>
