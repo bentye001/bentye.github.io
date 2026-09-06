@@ -954,7 +954,7 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
     entries.forEach(function(en){
       if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
     });
-  },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+  },{threshold:.02,rootMargin:'0px 0px -40px 0px'});
   els.forEach(function(e){io.observe(e)});
 })();
 
