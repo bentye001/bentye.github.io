@@ -335,9 +335,26 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
 
 /* editable placeholder marker — delete this rule once everything is filled in */
 /* ---------- engineering drawings: show the whole sheet, never crop ---------- */
-.shot.dwg{background:#fff}
-.shot.dwg img{object-fit:contain;aspect-ratio:4/3;background:#fff;padding:8px}
-.shot.dwg:hover img{transform:none}
+.shot.dwg,.shot.chart{background:#fff}
+.shot.dwg img,.shot.chart img{object-fit:contain;background:#fff}
+.shot.dwg:hover img,.shot.chart:hover img{transform:none}
+
+/* Stage media cells have no intrinsic height of their own, so an image inside a
+   bare .shot collapses to zero and never loads. Photographs get a fixed box and
+   fill it; drawings get a sheet sized to the drawing, so nothing is cropped and
+   no grey shows through. */
+.stage-media .shot{display:block}
+.stage-media.pair{align-items:start}
+.stage-media.pair .shot{aspect-ratio:4/3}
+.stage-media.pair.tall .shot{aspect-ratio:3/4}
+.stage-media.pair.wide .shot{aspect-ratio:16/9}
+.stage-media.pair.tall .shot img,.stage-media.pair.wide .shot img{aspect-ratio:auto}
+@media(max-width:520px){.stage-media.pair.tall .shot{aspect-ratio:4/3}}
+
+/* A drawing sheet is its own panel: white ground, sized by the sheet itself. */
+.shot.dwg,.stage-media.pair .shot.dwg,.practice .shot{aspect-ratio:auto;background:#fff}
+.shot.dwg img,.practice .shot img{width:100%;height:auto;object-fit:contain;background:#fff}
+.stage-media .shot.dwg{display:flex;align-items:center;justify-content:center}
 .practice-head{padding:clamp(40px,5vw,72px) 0 0}
 .practice-note{max-width:70ch;color:var(--slate);margin:14px 0 0;font-size:16.5px;line-height:1.6}
 .practice{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
@@ -622,10 +639,10 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
 
       <div class="stage">
         <div class="stage-media pair">
-          <button class="shot" type="button" data-cap="Training — precision, recall and mAP across 80 epochs">
+          <button class="shot chart" type="button" data-cap="Training — precision, recall and mAP across 80 epochs">
             <img src="img/training-curves.jpg" alt="Training curves showing precision, recall, mAP50 and mAP50-95 rising across 80 epochs." loading="lazy" decoding="async">
           </button>
-          <button class="shot" type="button" data-cap="Confusion matrix — tablets and capsules, normalised">
+          <button class="shot chart" type="button" data-cap="Confusion matrix — tablets and capsules, normalised">
             <img src="img/confusion-matrix.jpg" alt="Normalised confusion matrix for the tablet, capsule and background classes." loading="lazy" decoding="async">
           </button>
         </div>
@@ -699,7 +716,7 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
       </div>
 
       <div class="stage">
-        <div class="stage-media pair">
+        <div class="stage-media pair wide">
           <button class="shot" type="button" data-cap="Von Mises stress, peak 149 MPa, in the rods rather than the joint">
             <img src="img/knuckle-fea-vonmises.jpg" alt="Von Mises stress plot of the knuckle joint under opposing axial loads, with peak stress in the rod sections." loading="lazy" decoding="async">
           </button>
