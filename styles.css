@@ -166,7 +166,7 @@ section{padding:clamp(56px,8vw,104px) 0;border-top:1px solid var(--rule)}
    so no panel ground is left showing underneath them. */
 .stage{align-items:start}
 .stage-media{order:1;background:var(--card);display:grid;gap:1px;align-content:stretch}
-.stage-media.pair{grid-template-columns:1fr 1fr;align-content:start}
+.stage-media.pair{grid-template-columns:1fr 1fr;align-content:start;align-items:stretch}
 .stage-media.pair.tall .shot img{aspect-ratio:3/4;object-fit:cover}
 @media(max-width:520px){.stage-media.pair{grid-template-columns:1fr}.stage-media.pair.tall .shot img{aspect-ratio:4/3}}
 .stage-text{order:2;padding:clamp(26px,3.6vw,52px);display:flex;flex-direction:column;justify-content:center}
