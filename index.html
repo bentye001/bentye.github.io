@@ -674,12 +674,13 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
       <div class="proj-head">
         <p class="proj-tag">Design &amp; detailing &middot; Stress Analysis and Design &middot; 2025/26</p>
         <h3>A pin joint taken from model to manufacturable drawing set</h3>
-        <p>Three parts modelled as a constrained assembly, then accurately geometrically dimensioned and toleranced across a four sheet set, and loaded in a static stress study to check the sections would hold. The drawings below carry the full scheme.</p>
+        <p>Three parts sized from standard design equations, then modelled as a constrained assembly, accurately geometrically dimensioned and toleranced across a four sheet set, and loaded in a static stress study to confirm the sections hold. The drawings below carry the full scheme.</p>
       </div>
 
       <dl class="specbar">
         <div><dt>Parts</dt><dd>Fork, single eye, pin</dd></div>
         <div><dt>Material</dt><dd>Steel, 415 MPa yield</dd></div>
+        <div><dt>Sizing</dt><dd>Standard design equations</dd></div>
         <div><dt>CAD</dt><dd>Fusion 360, constrained assembly</dd></div>
         <div><dt>Drawings</dt><dd>4 sheets, balloons and parts list</dd></div>
         <div><dt>Tolerancing</dt><dd>Full GD&amp;T scheme, all four sheets</dd></div>
@@ -726,7 +727,8 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
         <div class="stage-text">
           <p class="stage-n"><b>03</b><span></span>Analysis</p>
           <h4>Checking the sections before trusting them</h4>
-          <p>The assembly was loaded with opposing 35 kN axial forces against a fixed constraint, meshed with parabolic elements and refined adaptively on von Mises stress so the mesh gets finer where the answer is changing fastest.</p>
+          <p>The section sizes came first, from the standard design equations for a knuckle joint: double shear on the pin, bearing on the fork and eye, direct tension on the rods, each against an allowable derived from the yield strength.</p>
+          <p>The assembly was then loaded with opposing 35 kN axial forces against a fixed constraint, meshed with parabolic elements and refined adaptively on von Mises stress, so the mesh gets finer where the answer is changing fastest.</p>
           <p>Peak stress is 149 MPa and it lands in the rod sections, not at the pin or the eye, so the joint itself is not the weak point. That is worth knowing before adding material anywhere.</p>
         </div>
       </div>
