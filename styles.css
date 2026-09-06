@@ -162,7 +162,10 @@ section{padding:clamp(56px,8vw,104px) 0;border-top:1px solid var(--rule)}
 
 /* staged walkthrough */
 .stage{display:grid;grid-template-columns:1.1fr .9fr;border-bottom:1px solid var(--rule)}
-.stage-media{order:1;background:#EDF0F4;display:grid;gap:1px;align-content:stretch}
+/* The media column sizes to its images rather than stretching to the text,
+   so no panel ground is left showing underneath them. */
+.stage{align-items:start}
+.stage-media{order:1;background:var(--card);display:grid;gap:1px;align-content:stretch}
 .stage-media.pair{grid-template-columns:1fr 1fr;align-content:start}
 .stage-media.pair.tall .shot img{aspect-ratio:3/4;object-fit:cover}
 @media(max-width:520px){.stage-media.pair{grid-template-columns:1fr}.stage-media.pair.tall .shot img{aspect-ratio:4/3}}
