@@ -162,11 +162,8 @@ section{padding:clamp(56px,8vw,104px) 0;border-top:1px solid var(--rule)}
 
 /* staged walkthrough */
 .stage{display:grid;grid-template-columns:1.1fr .9fr;border-bottom:1px solid var(--rule)}
-.stage-media{order:1;background:var(--card);display:grid;gap:1px;align-content:center}
-.stage-media.pair{grid-template-columns:1fr;align-content:center;align-items:stretch}
+.stage-media{order:1;background:var(--card);display:grid;gap:14px;align-content:center;padding:clamp(18px,2.4vw,32px)}
 .stage-media.pair.tall{grid-template-columns:1fr 1fr}
-.stage-media.pair.tall .shot img{object-fit:cover}
-@media(max-width:520px){.stage-media.pair{grid-template-columns:1fr}.stage-media.pair.tall .shot img{aspect-ratio:4/3}}
 .stage-text{order:2;padding:clamp(26px,3.6vw,52px);display:flex;flex-direction:column;justify-content:center}
 .stage.flip .stage-media{order:2}
 .stage.flip .stage-text{order:1}
@@ -314,22 +311,23 @@ footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:
 .shot.dwg img,.shot.chart img{object-fit:contain;background:#fff}
 .shot.dwg:hover img,.shot.chart:hover img{transform:none}
 
-/* Stage media cells have no intrinsic height of their own, so an image inside a
-   bare .shot collapses to zero and never loads. Photographs get a fixed box and
-   fill it; drawings get a sheet sized to the drawing, so nothing is cropped and
-   no grey shows through. */
-.stage-media .shot{display:block;aspect-ratio:4/3}
-/* Cells stretch to fill their row, so no panel background is ever left showing.
-   The ratios above are the floor that stops a lazy loaded image collapsing. */
-.stage-media.pair.tall .shot{aspect-ratio:3/4}
-.stage-media.pair.wide .shot{aspect-ratio:16/9}
-.stage-media.pair.tall .shot img,.stage-media.pair.wide .shot img{aspect-ratio:auto}
-@media(max-width:520px){.stage-media.pair.tall .shot{aspect-ratio:4/3}}
+/* Every image box takes the exact shape of its own image (--ar, set on the
+   element), so nothing is cropped and no letterbox shows. Tall images are
+   capped by height and centred rather than allowed to dominate the column. */
+.stage-media .shot{
+  display:block;width:100%;margin-inline:auto;
+  aspect-ratio:var(--ar,1.333);
+  max-width:min(100%, calc(var(--cap,480px) * var(--ar,1.333)));
+  border:1px solid var(--rule);
+}
+.stage-media .shot img{width:100%;height:100%;object-fit:cover;background:#fff}
+.stage-media .shot:hover img{transform:scale(1.025)}
+.stage-media .shot.dwg:hover img,.stage-media .shot.chart:hover img{transform:none}
+.stage-media.pair.tall .shot{--cap:560px}
 
-/* A drawing sheet is A series, so its box is too: the sheet fills it exactly. */
-.stage-media .shot.dwg{aspect-ratio:1.414}
+/* practice drawings are A series sheets, so their frame is too */
 .practice .shot{display:block;aspect-ratio:1.414;background:#fff}
-.shot.dwg img,.practice .shot img{width:100%;height:100%;object-fit:contain;background:#fff}
+.practice .shot img{width:100%;height:100%;object-fit:contain;background:#fff}
 .practice-head{padding:clamp(40px,5vw,72px) 0 0}
 .practice-note{max-width:70ch;color:var(--slate);margin:14px 0 0;font-size:16.5px;line-height:1.6}
 .practice{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}

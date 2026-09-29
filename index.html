@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=2">
+<link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
 
@@ -53,7 +53,7 @@
         <a class="btn solid" href="#work">See the work</a>
         <a class="btn ghost" href="Ben-Tye-CV.pdf" download>Download CV</a>
       </div>
-      <p class="avail"><span class="dot"></span> Open to graduate roles in MedTech, instrumentation and controls</p>
+      <p class="avail"><span class="dot"></span> Open to graduate roles in mechanical design, MedTech and instrumentation</p>
     </div>
 
     <div class="figure">
@@ -133,7 +133,7 @@
   <div class="wrap">
     <div class="reveal">
       <p class="eyebrow"><span class="bar">///</span> Selected work</p>
-      <h2 class="sec-title">Four projects</h2>
+      <h2 class="sec-title">Three projects</h2>
       <p class="sec-note">Written the way I would hand them over to another engineer: what the problem was, what the build consisted of, what came out, and what did not work.</p>
     </div>
 
@@ -158,24 +158,24 @@
 
       <div class="stage">
         <div class="stage-media">
-          <button class="shot" type="button" data-cap="Wearable platform — modelled around a LiDAR scan of my own foot">
+          <button class="shot" type="button" style="--ar:1.743" data-cap="Wearable platform — modelled around a LiDAR scan of my own foot">
             <img src="img/platform-render.jpg" alt="Rendered view of the anatomically conformal 3D printed plantar platform." loading="lazy" decoding="async">
           </button>
         </div>
         <div class="stage-text">
           <p class="stage-n"><b>01</b><span></span>Design</p>
           <h4>Start from a real foot, not a generic last</h4>
-          <p>I captured my own plantar surface with LiDAR photogrammetry, then rebuilt the mesh in Blender — Fusion 360 fought the organic geometry, and the mid-plane of the sole needed the most repair.</p>
-          <p>Reference measurements verified scale before export, and the cleaned mesh went back into Fusion as a cutting body. The result conforms to actual anatomy, which matters: load has to reach the sensors the way it would in a real shoe.</p>
+          <p>I captured my own plantar surface with LiDAR photogrammetry and rebuilt the mesh in Blender, since Fusion 360 struggled with the organic geometry. The mid-plane of the sole needed the most repair.</p>
+          <p>Reference measurements confirmed the scale before export, and the cleaned mesh went back into Fusion as a cutting body. The platform follows the real foot, so load reaches the sensors the way it would in a shoe.</p>
         </div>
       </div>
 
       <div class="stage flip">
         <div class="stage-media pair">
-          <button class="shot" type="button" data-cap="Contact geometry — sliced for print in TPU 90A with gyroid infill">
+          <button class="shot" type="button" style="--ar:2.45" data-cap="Contact geometry — sliced for print in TPU 90A with gyroid infill">
             <img src="img/contact-geometry.jpg" alt="Sliced print preview of the removable sensing plate showing the eight raised sensor contact geometries." loading="lazy" decoding="async">
           </button>
-          <button class="shot dwg" type="button" data-cap="Prototype 2, a two part build holding every sensor at a uniform level">
+          <button class="shot dwg" type="button" style="--ar:1.414" data-cap="Prototype 2, a two part build holding every sensor at a uniform level">
             <img src="img/footwear-prototype2.png" alt="Isometric drawing of the two-part 3D printed footwear platform, the upper part shown with an internal lattice." loading="lazy" decoding="async">
           </button>
         </div>
@@ -183,44 +183,45 @@
           <p class="stage-n"><b>02</b><span></span>Manufacture</p>
           <h4>Two parts, so one variable moves at a time</h4>
           <p>The platform prints as two pieces in TPU 90A that slot together: a base matched to the foot, and a removable sensing plate carrying the eight FSRs in open cavities. Nothing is printed over a sensor, so none of them start pre-loaded.</p>
-          <p>That split is what made the study workable. A failed FSR just means separating the two halves and swapping the sensor — no reprinting at all. Testing a different contact geometry means reprinting only the top plate, so one variable moves while the base, the fit and the sensor positions stay exactly as they were. Velcro straps hold the assembly to the foot, and it can be taken off and refitted without disturbing sensor position.</p>
+          <p>That split made the study workable. A failed FSR means separating the halves and swapping the sensor, with no reprinting. A new contact geometry means reprinting only the top plate, so one variable changes while the base, the fit and the sensor positions stay fixed.</p>
+          <p>Velcro straps hold the assembly to the foot, and it comes off and refits without disturbing the sensors.</p>
         </div>
       </div>
 
       <div class="stage">
         <div class="stage-media">
-          <button class="shot" type="button" data-cap="Custom PCB — ESP32-S3, 74HC4051 multiplexer and eight divider inputs">
+          <button class="shot" type="button" style="--ar:2.2" data-cap="Custom PCB — ESP32-S3, 74HC4051 multiplexer and eight divider inputs">
             <img src="img/pcb-layout.jpg" alt="Custom PCB layout showing the ESP32-S3 footprint, multiplexer and eight fixed resistor and FSR input pairs." loading="lazy" decoding="async">
           </button>
         </div>
         <div class="stage-text">
           <p class="stage-n"><b>03</b><span></span>Electronics</p>
           <h4>Eight sensors, one ADC channel</h4>
-          <p>Each FSR sits in a voltage divider against a 10 kΩ fixed resistor, picked off the datasheet curves as the best compromise between low-load sensitivity and not saturating early. A 74HC4051 multiplexer lets all eight share a single ADC input on an ESP32-S3. I proved the circuit on breadboard before committing to the PCB.</p>
-          <p>The board sits in its own enclosure strapped at the ankle rather than underfoot, with the sensor loom routed down to the plate and the whole system powered over USB-C. Keeping the electronics off the foot means nothing rigid sits in the load path, which would otherwise corrupt the very measurement the device exists to take.</p>
+          <p>Each FSR sits in a voltage divider against a 10 kΩ resistor, chosen from the datasheet curves to balance low-load sensitivity against early saturation. A 74HC4051 multiplexer lets all eight share one ADC input on an ESP32-S3, and I proved the circuit on breadboard before committing to the PCB.</p>
+          <p>The board sits in its own enclosure at the ankle rather than underfoot, with the sensor loom routed down to the plate and power over USB-C. Keeping the electronics off the foot keeps anything rigid out of the load path, where it would corrupt the measurement.</p>
         </div>
       </div>
 
       <div class="stage flip">
         <div class="stage-media">
-          <button class="shot" type="button" data-cap="Calibration jig — controlled vertical loading in 2.5 kg steps">
+          <button class="shot" type="button" style="--ar:0.715" data-cap="Calibration jig — controlled vertical loading in 2.5 kg steps">
             <img src="img/calibration-jig.jpg" alt="Rendered calibration jig designed to apply controlled vertical loading to an embedded sensor test cube." loading="lazy" decoding="async">
           </button>
         </div>
         <div class="stage-text">
           <p class="stage-n"><b>04</b><span></span>Calibration</p>
           <h4>Known masses, controlled loading</h4>
-          <p>A custom jig applies vertical load to a printed test cube containing an embedded sensor, in 2.5 kg steps up to 12.5 kg — roughly 280 kPa once converted through the known contact area. Three contact geometries (flat dome, dome and puck) were characterised across four infill densities.</p>
+          <p>A custom jig applies vertical load to a printed test cube containing an embedded sensor, in 2.5 kg steps up to 12.5 kg, roughly 280 kPa over the known contact area. Three contact geometries (flat dome, dome and puck) were characterised across four infill densities.</p>
           <p>Output was sampled at 200 Hz and averaged over five seconds per step to settle the signal. Third-order polynomials fitted the non-linear response, the dome geometry reaching R² = 0.998.</p>
         </div>
       </div>
 
       <div class="stage">
         <div class="stage-media pair tall">
-          <button class="shot" type="button" data-cap="Static load map — normalised distribution across a 20 s standing trial">
+          <button class="shot" type="button" style="--ar:0.503" data-cap="Static load map — normalised distribution across a 20 s standing trial">
             <img src="img/load-heatmap.jpg" alt="Normalised heatmap of static plantar load distribution across the eight sensing locations." loading="lazy" decoding="async">
           </button>
-          <button class="shot" type="button" data-cap="Centre of pressure — dome versus puck, averaged across steps">
+          <button class="shot" type="button" style="--ar:0.496" data-cap="Centre of pressure — dome versus puck, averaged across steps">
             <img src="img/cop-trajectory.jpg" alt="Mean centre of pressure trajectories for dome and puck geometries plotted over a foot outline." loading="lazy" decoding="async">
           </button>
         </div>
@@ -267,41 +268,41 @@
 
       <div class="stage">
         <div class="stage-media pair">
-          <button class="shot" type="button" data-cap="The prototype — printed enclosure, Raspberry Pi 3, HX711 and HQ camera">
+          <button class="shot" type="button" style="--ar:0.957" data-cap="The prototype — printed enclosure, Raspberry Pi 3, HX711 and HQ camera">
             <img src="img/pillbox-prototype.jpg" alt="Photograph of the assembled Smart Pillbox prototype: 3D printed enclosure, Raspberry Pi, HX711 breakout and breadboard wiring." loading="lazy" decoding="async">
           </button>
-          <button class="shot dwg" type="button" data-cap="Assembly sheet with a ten item parts list covering printed parts and electronics">
+          <button class="shot dwg" type="button" style="--ar:1.414" data-cap="Assembly sheet with a ten item parts list covering printed parts and electronics">
             <img src="img/pillbox-assembly.png" alt="Isometric assembly drawing of the pillbox with a ten-item parts list covering Raspberry Pi, HQ camera, load cell, switch, LED, box, lid, mount, base and camera enclosure." loading="lazy" decoding="async">
           </button>
         </div>
         <div class="stage-text">
           <p class="stage-n"><b>01</b><span></span>Build</p>
           <h4>Event-driven, not always watching</h4>
-          <p>A latch designed in Fusion 360 trips a GPIO button when the lid closes, and that single event starts the whole measurement sequence — capture, weigh, decide. Nothing polls continuously.</p>
+          <p>A latch designed in Fusion 360 trips a GPIO button when the lid closes, and that single event starts the whole measurement sequence: capture, weigh, decide. Nothing polls continuously.</p>
           <p>The load cell reads through an HX711, zeroed at startup with a settling delay and ten averaged samples per reading, because a lid being pressed shut is exactly the kind of thing that spikes a load cell.</p>
         </div>
       </div>
 
       <div class="stage flip">
         <div class="stage-media">
-          <button class="shot" type="button" data-cap="Live inference — 31 tablets detected on-device via NCNN">
+          <button class="shot" type="button" style="--ar:1.334" data-cap="Live inference — 31 tablets detected on-device via NCNN">
             <img src="img/pill-detection.jpg" alt="Camera image after YOLOv8 inference, with bounding boxes and confidence scores over 31 tablets." loading="lazy" decoding="async">
           </button>
         </div>
         <div class="stage-text">
           <p class="stage-n"><b>02</b><span></span>Vision</p>
           <h4>Counting pills on a Raspberry Pi</h4>
-          <p>I trained a YOLOv8-nano detector on 2,000+ labelled images across 80 epochs, then exported it to NCNN so inference runs on the Pi itself rather than in the cloud — a medical device should not need a network to work.</p>
+          <p>I trained a YOLOv8-nano detector on 2,000+ labelled images across 80 epochs, then exported it to NCNN so inference runs on the Pi itself rather than in the cloud. A medical device should not need a network to work.</p>
           <p>Inference runs at 320 px with a 0.6 confidence floor to suppress weak predictions, and the bounding box count becomes the pill count feeding the decision logic.</p>
         </div>
       </div>
 
       <div class="stage">
         <div class="stage-media pair">
-          <button class="shot chart" type="button" data-cap="Training — precision, recall and mAP across 80 epochs">
+          <button class="shot chart" type="button" style="--ar:0.799" data-cap="Training — precision, recall and mAP across 80 epochs">
             <img src="img/training-curves.jpg" alt="Training curves showing precision, recall, mAP50 and mAP50-95 rising across 80 epochs." loading="lazy" decoding="async">
           </button>
-          <button class="shot chart" type="button" data-cap="Confusion matrix — tablets and capsules, normalised">
+          <button class="shot chart" type="button" style="--ar:1.093" data-cap="Confusion matrix — tablets and capsules, normalised">
             <img src="img/confusion-matrix.jpg" alt="Normalised confusion matrix for the tablet, capsule and background classes." loading="lazy" decoding="async">
           </button>
         </div>
@@ -349,21 +350,21 @@
 
       <div class="stage">
         <div class="stage-media">
-          <button class="shot dwg" type="button" data-cap="Sheet 1/4, assembly with balloon references and parts list">
+          <button class="shot dwg" type="button" style="--ar:1.414" data-cap="Sheet 1/4, assembly with balloon references and parts list">
             <img src="img/knuckle-assembly.png" alt="Isometric assembly drawing of a knuckle joint with a parts list naming fork, single eye and pin, all steel." loading="lazy" decoding="async">
           </button>
         </div>
         <div class="stage-text">
           <p class="stage-n"><b>01</b><span></span>Assembly</p>
           <h4>Three parts that have to stay coincident</h4>
-          <p>The fork, single eye and pin were modelled separately and constrained as an assembly, so the joint articulates in the model and mating features move together when a dimension changes upstream rather than quietly drifting apart.</p>
+          <p>The fork, single eye and pin were modelled separately and constrained as an assembly, so the joint articulates in the model and mating features stay together when a dimension changes upstream.</p>
           <p>The front sheet carries balloon references to a parts list naming every component and its material, so the set can be read without opening the model.</p>
         </div>
       </div>
 
       <div class="stage flip">
         <div class="stage-media">
-          <button class="shot dwg" type="button" data-cap="Sheet 2/4, fork detail">
+          <button class="shot dwg" type="button" style="--ar:1.414" data-cap="Sheet 2/4, fork detail">
             <img src="img/knuckle-fork-detail.png" alt="Detail drawing of the knuckle joint fork showing dimensions, datum symbols, a position tolerance and surface finish callouts." loading="lazy" decoding="async">
           </button>
         </div>
@@ -377,10 +378,10 @@
 
       <div class="stage">
         <div class="stage-media pair wide">
-          <button class="shot" type="button" data-cap="Von Mises stress, peak 149 MPa, in the rods rather than the joint">
+          <button class="shot" type="button" style="--ar:1.754" data-cap="Von Mises stress, peak 149 MPa, in the rods rather than the joint">
             <img src="img/knuckle-fea-vonmises.jpg" alt="Von Mises stress plot of the knuckle joint under opposing axial loads, with peak stress in the rod sections." loading="lazy" decoding="async">
           </button>
-          <button class="shot" type="button" data-cap="Safety factor, minimum 2.79 against a 415 MPa yield">
+          <button class="shot" type="button" style="--ar:1.784" data-cap="Safety factor, minimum 2.79 against a 415 MPa yield">
             <img src="img/knuckle-fea-safety.jpg" alt="Safety factor plot of the knuckle joint, minimum 2.79." loading="lazy" decoding="async">
           </button>
         </div>
@@ -409,33 +410,6 @@
       </div>
     </article>
 
-    <!-- P4: Formula Student -->
-    <article class="proj reveal">
-      <div class="proj-head">
-        <p class="proj-tag">Team · Dec 2025 – May 2026</p>
-        <h3>Formula Student — Electronics &amp; Controls</h3>
-        <p>I joined in the team's founding year, so there was no car and no existing system to inherit. My task was researching what the car should sense and how those sensors would integrate.</p>
-      </div>
-      <div class="proj-body">
-        <div class="spec">
-          <dl>
-            <div><dt>Team</dt><dd>Electronics &amp; Controls</dd></div>
-            <div><dt>Year</dt><dd>Founding year</dd></div>
-            <div><dt>Period</dt><dd>Dec 2025 – May 2026</dd></div>
-            <div><dt>Focus</dt><dd>Sensing, wiring architecture, controls</dd></div>
-          </dl>
-        </div>
-        <div class="did">
-          <h4>What I contributed</h4>
-          <ul>
-            <li>Was tasked with researching sensor types and how they would integrate, weighing hall effect sensing against conventional contact and resistive alternatives on cost, packaging, wear and signal quality, and setting the trade-offs out for the team to choose from.</li>
-            <li>Helped set up the electronics and controls workstream from scratch, in a team with no previous car to work from.</li>
-            <li>Checked the options against Formula Student rules and the team budget before recommending any of them.</li>
-            <li>Worked across sub-teams so the electronics decisions matched what the mechanical side was designing.</li>
-          </ul>
-        </div>
-      </div>
-    </article>
 
     <div class="reveal practice-head">
       <p class="eyebrow"><span class="bar">///</span> CAD practice</p>
@@ -545,7 +519,7 @@
         <div class="what">
           <h3>Formula Student — Electronics &amp; Controls</h3>
           <p class="where">Founding team member</p>
-          <p>Researched sensor types and their integration for the team&rsquo;s first car, weighing hall effect sensing against conventional alternatives and working with the mechanical sub-teams on where those sensors would sit.</p>
+          <p>Researched sensor types and their integration for the team&rsquo;s first car, weighing hall effect sensing against conventional alternatives within the rules and the team budget, and working with the mechanical sub-teams on where the sensors would sit.</p>
         </div>
       </div>
       <div class="row">
@@ -567,7 +541,7 @@
   <div class="wrap">
     <p class="eyebrow"><span class="bar" style="color:#FF7FB4">///</span> Contact</p>
     <h2 class="sec-title">Let's talk</h2>
-    <p class="contact-lede">If you are hiring graduate engineers in medical devices, instrumentation or controls, I would like to hear from you.</p>
+    <p class="contact-lede">If you are hiring graduate engineers in mechanical design, medical devices or instrumentation, I would like to hear from you.</p>
     <div class="clist">
       <a class="clink" href="mailto:bentye2003@gmail.com">
         <span class="k">Email</span>
