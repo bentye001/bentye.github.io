@@ -16,6 +16,7 @@
   --edge:#1F3864;
   --mast-bg:rgba(242,244,247,.88);
   --hl:rgba(200,29,107,.13);
+  --sole:#D8DEE7;
 
   --rear:#1F3864;
   --mid:#7A6FA8;
@@ -50,6 +51,7 @@
   --edge:#5873A8;
   --mast-bg:rgba(13,19,34,.86);
   --hl:rgba(240,80,143,.24);
+  --sole:#4A5A7C;
   color-scheme:dark;
   }
 }
@@ -73,6 +75,7 @@
   --edge:#5873A8;
   --mast-bg:rgba(13,19,34,.86);
   --hl:rgba(240,80,143,.24);
+  --sole:#4A5A7C;
   color-scheme:dark;
 }
 :root[data-theme="light"]{color-scheme:light}
@@ -175,7 +178,7 @@ h2.sec-title{
 .fig-key span{display:flex;align-items:center;gap:6px}
 .fig-key i{width:8px;height:8px;border-radius:50%;display:inline-block}
 
-.sole{fill:none;stroke:var(--rule);stroke-width:1.6}
+.sole{fill:none;stroke:var(--sole);stroke-width:1.6}
 .cop{stroke:var(--signal);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round;
      stroke-dasharray:280;stroke-dashoffset:280;animation:trace 5s cubic-bezier(.45,0,.35,1) infinite}
 @keyframes trace{
