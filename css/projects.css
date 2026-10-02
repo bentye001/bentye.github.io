@@ -60,11 +60,10 @@
 
 /* ---------- clickable images (.shot) ----------
    Each image is a <button class="shot"> so it can be opened with the
-   keyboard too. style="--ar:1.743" on the button is that image's own
-   width ÷ height, so the box matches the picture and nothing is cropped. */
+   keyboard too. Clicking it opens the lightbox (js/lightbox.js). */
 .shot{
   display:block;position:relative;overflow:hidden;width:100%;
-  margin:0;padding:0;border:none;background:var(--card);
+  margin:0;padding:0;border:none;background:#fff;
   font:inherit;text-align:left;cursor:zoom-in;
 }
 .shot img{
@@ -75,31 +74,62 @@
 
 /* "enlarge" badge that appears on hover */
 .shot::after{
-  content:"⤢";position:absolute;top:14px;right:14px;
+  content:"⤢";position:absolute;top:12px;right:12px;
   width:30px;height:30px;border-radius:50%;background:rgba(16,25,46,.55);color:#fff;
   font-size:13px;line-height:30px;text-align:center;
   opacity:0;transform:scale(.7);transition:opacity .3s ease,transform .3s var(--ease);
 }
 .shot:hover::after,.shot:focus-visible::after{opacity:1;transform:none}
 
-.stage-media .shot{
-  margin-inline:auto;
-  aspect-ratio:var(--ar,1.333);
-  max-width:min(100%, calc(var(--cap,480px) * var(--ar,1.333))); /* tall images are capped by height */
+/* ---------- image plates ----------
+   Every project image is mounted like the Fig. 1 panel in the hero:
+   a bordered frame with a hairline round the picture and a numbered
+   mono caption underneath.
+
+     <figure class="plate" style="--ar:1.743">   ← image width ÷ height
+       <button class="shot">…image…</button>
+       <figcaption>Caption text</figcaption>
+     </figure>
+
+   Figure numbers are counted automatically by CSS, so adding or
+   removing an image renumbers everything after it. The hero is Fig. 1,
+   so the count starts there. */
+body{counter-reset:fig 1}
+
+.plate{
+  margin:0 auto;width:100%;
+  /* tall images are capped by height so they don't dominate the column */
+  max-width:min(100%, calc(var(--cap,480px) * var(--ar,1.333) + 22px));
+  background:var(--tint);
   border:1px solid var(--rule);
   border-radius:var(--radius);
-  box-shadow:var(--shadow);
-  transition:transform .4s var(--ease),box-shadow .4s ease;
+  padding:10px 10px 0;
+  transition:border-color .3s ease;
 }
-.stage-media .shot:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
-.stage-media .shot:hover img{transform:scale(1.025)}
-.stage-media.pair.tall .shot{--cap:560px}
+.plate:hover{border-color:var(--edge)}
+.stage-media.pair.tall .plate{--cap:560px}
+
+.plate .shot{
+  aspect-ratio:var(--ar,1.333);
+  border:1px solid var(--rule);
+  border-radius:calc(var(--radius) / 2);
+}
+.plate .shot:hover img{transform:scale(1.03)}
+
+.plate figcaption{
+  font-family:var(--mono);font-size:10.5px;line-height:1.55;letter-spacing:.02em;
+  color:var(--slate);padding:10px 2px 11px;
+}
+.plate figcaption::before{
+  counter-increment:fig;
+  content:"Fig. " counter(fig) " — ";
+  color:var(--ink);font-weight:500;
+}
 
 /* drawings and charts: show the whole sheet on white, never crop or zoom */
-.shot.dwg,.shot.chart{background:#fff}
 .shot.dwg img,.shot.chart img{object-fit:contain}
 .shot.dwg:hover img,.shot.chart:hover img,
-.stage-media .shot.dwg:hover img,.stage-media .shot.chart:hover img{transform:none}
+.plate .shot.dwg:hover img,.plate .shot.chart:hover img{transform:none}
 
 /* ---------- "What it showed" ---------- */
 .outcome{padding:clamp(26px,4vw,52px);display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(24px,4vw,52px)}
@@ -128,7 +158,7 @@
 @media(max-width:820px){.practice{grid-template-columns:1fr}}
 .practice figure{
   margin:0;border:1px solid var(--rule);background:var(--card);
-  border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);
+  border-radius:var(--radius);overflow:hidden;
   transition:transform .3s var(--ease),border-color .3s ease,box-shadow .3s ease;
 }
 .practice figure:hover{transform:translateY(-4px);border-color:var(--signal);box-shadow:var(--shadow-lift)}

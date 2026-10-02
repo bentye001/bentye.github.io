@@ -25,7 +25,10 @@
     function apply() {
       img.src = source.src;
       img.alt = source.alt;
-      cap.textContent = shot.getAttribute("data-cap") || source.alt;
+      // caption: the plate's figcaption, else data-cap (CAD gallery), else the alt text
+      var fig = shot.closest(".plate");
+      cap.textContent = (fig && fig.querySelector("figcaption").textContent) ||
+                        shot.getAttribute("data-cap") || source.alt;
       count.textContent = group.length > 1 ? (index + 1) + " / " + group.length : "";
       img.classList.remove("swap");
     }

@@ -38,7 +38,7 @@
 
   /* ---- layout ---- */
   --gut:clamp(20px,5vw,64px);     /* side padding */
-  --radius:12px;                  /* image corners; 0 gives the old square look */
+  --radius:4px;                   /* corner rounding on image frames; 0 = square */
   --shadow:0 1px 2px rgba(16,25,46,.05),0 14px 30px -20px rgba(16,25,46,.45);
   --shadow-lift:0 2px 4px rgba(16,25,46,.06),0 22px 40px -22px rgba(16,25,46,.55);
 

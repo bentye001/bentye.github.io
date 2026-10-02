@@ -19,7 +19,7 @@
   var EFFECTS = [
     ["type",  ".eyebrow, .proj-tag"],
     ["split", ".sec-title, .proj-head h3, .hero-name"],
-    ["wipe",  ".stage-media .shot"],
+    ["wipe",  ".stage-media .plate"],
     ["inner", ".specbar > div, .clink"],
     ["up",    ".hero .lede, .hero .actions, .avail, .figure, " +
               ".sec-note, .practice-note, .focus-grid p, " +

@@ -17,8 +17,8 @@
    ===================================================================== */
 
 /* shared timing; --i is the element's place in the group appearing together.
-   .shot.rv and figure.rv are listed so this beats their own hover transitions. */
-.rv,.shot.rv,figure.rv{
+   figure.rv is listed so this beats the frames' own hover transitions. */
+.rv,figure.rv{
   transition-property:opacity,transform,clip-path,background-size;
   transition-duration:var(--reveal-time);
   transition-timing-function:var(--ease);
@@ -54,13 +54,13 @@
 /* ---------- image unveil ----------
    The image fades up out of a soft blur while its rounded frame opens
    out from slightly inset, and the picture inside settles from a zoom. */
-.shot.rv-wipe{
+.plate.rv-wipe{
   opacity:0;transform:translateY(24px) scale(.97);filter:blur(6px);
   clip-path:inset(5% 5% 5% 5% round var(--radius));
   transition-property:opacity,transform,clip-path,filter;
   transition-duration:1.2s;
 }
-.shot.rv-wipe.in{opacity:1;transform:none;filter:none;clip-path:inset(0 round var(--radius))}
+.plate.rv-wipe.in{opacity:1;transform:none;filter:none;clip-path:inset(0 round var(--radius))}
 .rv-wipe img{transform:scale(1.08);transition:transform 1.6s var(--ease) calc(var(--i,0) * var(--stagger))}
 .rv-wipe.in img{transform:none}
 
@@ -124,8 +124,8 @@
   .cop{stroke-dashoffset:0;animation:none}
   .sensor,.dot{animation:none}
   .rv,.rv *,.rv-inner > *{opacity:1!important;transform:none!important;clip-path:none!important;filter:none!important;transition:none!important}
-  .stage-media .shot,.practice figure{transition:none}
-  .stage-media .shot:hover,.practice figure:hover{transform:none}
+  .practice figure{transition:none}
+  .practice figure:hover{transform:none}
   .figure.rv .sole{stroke-dasharray:none}
   .figure svg,.lb,.lb img,.to-top,.mast nav{transition:none}
 }
