@@ -1,0 +1,88 @@
+/* =====================================================================
+   HEADER
+   Sticky masthead with the name, section links, theme toggle, the
+   mobile menu button and the scroll progress line along its bottom edge.
+   Behaviour lives in js/nav.js and js/theme.js.
+   ===================================================================== */
+
+.mast{
+  position:sticky;top:0;z-index:50;
+  background:var(--mast-bg);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--rule);
+  transition:box-shadow .3s ease;
+}
+/* js/nav.js adds .scrolled once the page moves */
+.mast.scrolled{box-shadow:0 6px 24px -14px rgba(16,25,46,.35)}
+
+.mast-in{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:14px;padding-bottom:14px}
+.mast-end{display:flex;align-items:center;gap:22px}
+
+.sig{font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:.01em;text-decoration:none}
+.sig i{font-style:normal;color:var(--signal);display:inline-block;transition:transform .3s var(--ease)}
+.sig:hover i{transform:translateY(-3px)}
+
+/* ---------- section links ---------- */
+.mast nav{display:flex;gap:22px}
+.mast nav a{
+  font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+  color:var(--slate);text-decoration:none;padding:4px 0;position:relative;
+  transition:color .2s ease;
+}
+/* underline grows from the left on hover, and stays on the current section */
+.mast nav a::after{
+  content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--signal);
+  transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease);
+}
+.mast nav a:hover,.mast nav a.on{color:var(--ink)}
+.mast nav a:hover::after,.mast nav a.on::after{transform:scaleX(1)}
+
+/* ---------- round icon buttons (theme + menu) ---------- */
+.theme-toggle,.menu-toggle{
+  display:inline-grid;place-items:center;width:34px;height:34px;padding:0;
+  border:1px solid var(--rule);border-radius:50%;background:var(--card);color:var(--ink);
+  cursor:pointer;transition:border-color .2s ease,color .2s ease,background .2s ease;
+}
+.theme-toggle:hover,.menu-toggle:hover{border-color:var(--signal);color:var(--signal)}
+.theme-toggle svg{width:16px;height:16px;display:block}
+.theme-toggle .i-sun{display:none}
+:root[data-theme="dark"] .theme-toggle .i-sun{display:block}
+:root[data-theme="dark"] .theme-toggle .i-moon{display:none}
+/* the icon spins in when the theme changes (class added by js/theme.js) */
+.theme-toggle.spin svg{animation:icon-in .5s var(--ease)}
+@keyframes icon-in{from{transform:rotate(-120deg) scale(.4);opacity:0}}
+
+/* menu button: two lines that cross into an X when open */
+.menu-toggle{display:none;gap:0;align-content:center}
+.menu-toggle span{
+  display:block;width:14px;height:1.6px;background:currentColor;
+  transition:transform .3s var(--ease);
+}
+.menu-toggle span:first-child{transform:translateY(-3px)}
+.menu-toggle span:last-child{transform:translateY(3px)}
+.mast.open .menu-toggle span:first-child{transform:rotate(45deg)}
+.mast.open .menu-toggle span:last-child{transform:translateY(-1.6px) rotate(-45deg)}
+
+/* ---------- scroll progress line ---------- */
+.mast-progress{
+  position:absolute;left:0;bottom:-1px;width:100%;height:2px;
+  background:var(--signal);transform-origin:left;transform:scaleX(0);
+}
+
+/* ---------- small screens: links fold into a drop-down ---------- */
+@media(max-width:700px){
+  .menu-toggle{display:inline-grid}
+  .mast-end{gap:12px}
+  .mast nav{
+    position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);
+    padding:4px var(--gut) 12px;
+    clip-path:inset(0 0 100% 0);visibility:hidden;
+    transition:clip-path .35s var(--ease),visibility 0s .35s;
+  }
+  .mast.open nav{clip-path:inset(0 0 -20px 0);visibility:visible;transition:clip-path .35s var(--ease)}
+  .mast nav a{padding:13px 0;font-size:13px;border-bottom:1px solid var(--rule)}
+  .mast nav a:last-child{border-bottom:none}
+  .mast nav a::after{display:none}
+  .mast nav a.on{color:var(--signal)}
+}

@@ -1,36 +1,43 @@
 # Ben Tye — portfolio site
 
-A static site. No build step, no dependencies, no framework. Every file is plain HTML, CSS and a few lines of vanilla JavaScript, so it will run on any host that serves files.
+A static site. No build step, no dependencies, no framework. Every file is plain HTML, CSS and vanilla JavaScript, so it will run on any host that serves files.
 
 ## Files
 
+The page content, its styling and its behaviour are kept apart so each can be learned and tweaked on its own.
+
 | File | What it is |
 | --- | --- |
-| `index.html` | The whole site — markup, styles and script in one file |
-| `404.html` | Not-found page, styled to match |
-| `img/` | Ten project photographs, renders and result figures, pulled from your own reports |
+| `index.html` | Page content only: text, images, links. No styles or scripts inside |
+| `404.html` | Not-found page, styled to match (self-contained) |
+| `css/tokens.css` | **Start here.** Every colour, font and motion setting as a variable |
+| `css/base.css` | Reset, body text, shared headings and section spacing |
+| `css/header.css` | Sticky header, nav links, theme and menu buttons, progress line |
+| `css/hero.css` | Intro block and the animated foot figure |
+| `css/projects.css` | Project cards, image stages, metrics and the CAD gallery |
+| `css/sections.css` | Focus, Capabilities and Background |
+| `css/contact.css` | Contact block, footer and back-to-top button |
+| `css/lightbox.css` | Full-screen image viewer |
+| `css/motion.css` | Scroll reveals and pointer effects |
+| `js/theme-init.js` | Applies the saved theme before the page draws (loaded in `<head>`) |
+| `js/theme.js` | Dark / light toggle |
+| `js/nav.js` | Progress line, active section highlight, mobile menu, back to top |
+| `js/reveal.js` | Animates text and images in as you scroll |
+| `js/counters.js` | Counts the headline numbers up when they appear |
+| `js/pointer-effects.js` | Figure tilt and card spotlight (mouse only) |
+| `js/lightbox.js` | Click an image to enlarge it, arrow keys to browse |
+| `img/` | Project photographs, renders, drawings and result figures |
 | `og-image.png` | Social preview card (1200×630) shown when the link is shared |
 | `favicon.svg` | Browser tab icon |
-| `robots.txt` | Allows search engines to index the site |
-| `Ben-Tye-CV.pdf` | **You need to add this.** The download buttons link to this exact filename |
+| `Ben-Tye-CV.pdf` | The CV the download buttons link to |
 
-## Before publishing
+## Common tweaks
 
-Seven things still need filling in. They are highlighted in pink with a dashed underline so you cannot miss them on the page. To find them in the code, search `index.html` for `todo`.
-
-1. Email address (appears twice — the `mailto:` link and the visible text)
-2. LinkedIn URL
-3. GitHub URL
-4. Degree start year
-5. Degree classification
-6. B&Q employment dates
-7. One concrete personal deliverable on Formula Student
-
-Then:
-
-- Add your CV to this folder, named exactly `Ben-Tye-CV.pdf`
-- Delete the `.todo` CSS rule at the end of the stylesheet in `index.html` (the last rule, marked with a comment) to remove the pink highlighting
-- Once you know your live address, replace `og:url` and the two `og-image.png` paths in the `<head>` with full URLs, e.g. `https://bentye.co.uk/og-image.png`. Social platforms need absolute URLs; relative ones will not resolve
+- **Accent colour:** change `--signal` in `css/tokens.css` (and its dark value further down the same file)
+- **Animation speed or distance:** `--reveal-time`, `--reveal-shift`, `--stagger` and `--word-stagger` in `css/tokens.css`
+- **Animate a new element:** add its selector to the `EFFECTS` list at the top of `js/reveal.js`
+- **Turn an effect off:** delete its `<script>` line at the bottom of `index.html`. Each script works on its own, and the page still reads normally with none of them
+- **Reduced motion:** visitors whose system asks for less motion get the finished page with no animation. Keep that in mind if you add effects: the `prefers-reduced-motion` block at the end of `css/motion.css` is the place to switch them off
 
 ## Publishing it
 
@@ -56,7 +63,7 @@ A `.co.uk` domain costs roughly £8–12 a year. Buy one from any registrar, the
 
 ## Editing it later
 
-Open `index.html` in any text editor. The structure is commented by section — hero, focus, work, capabilities, background, contact. Colours and fonts are CSS custom properties in the `:root` block at the top of the stylesheet, so changing the accent colour everywhere is a one-line edit.
+Open `index.html` to change words or images; it is commented by section — hero, focus, work, capabilities, background, contact. Change the look in the matching file in `css/`, and the behaviour in `js/`. Each file starts with a comment saying what it covers.
 
 To add a fourth project, copy any `<article class="proj">` block and edit the contents. The layout adapts automatically.
 

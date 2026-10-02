@@ -1,0 +1,42 @@
+/* =====================================================================
+   LIGHTBOX
+   Full-screen viewer opened by clicking any project image.
+   Behaviour lives in js/lightbox.js.
+   ===================================================================== */
+
+.lb{
+  position:fixed;inset:0;z-index:200;background:rgba(10,16,30,.94);
+  display:flex;align-items:center;justify-content:center;
+  padding:clamp(16px,4vw,52px) clamp(56px,8vw,96px);cursor:zoom-out;
+  opacity:0;visibility:hidden;
+  transition:opacity .3s ease,visibility 0s .3s;   /* fade out, then hide */
+}
+.lb.on{opacity:1;visibility:visible;transition:opacity .3s ease}
+
+.lb figure{margin:0;max-width:1100px;width:100%;text-align:center}
+.lb img{
+  max-width:100%;max-height:76vh;object-fit:contain;display:block;margin:0 auto;background:#fff;
+  transform:scale(.96);transition:transform .45s var(--ease),opacity .2s ease;
+}
+.lb.on img{transform:none}
+.lb img.swap{opacity:0}   /* brief fade while changing image */
+
+.lb figcaption{
+  font-family:var(--mono);font-size:12px;line-height:1.6;color:#B9C5D8;
+  margin:18px auto 0;max-width:62ch;
+}
+.lb-count{color:#FF7FB4;margin-right:12px}
+.lb-count:empty{display:none}
+
+/* close and previous / next buttons */
+.lb .x,.lb-nav{
+  position:absolute;background:none;border:1px solid rgba(255,255,255,.35);
+  color:#fff;font-family:var(--mono);font-size:12px;letter-spacing:.08em;cursor:pointer;
+  transition:background .2s ease,border-color .2s ease;
+}
+.lb .x{top:18px;right:22px;padding:9px 15px}
+.lb-nav{top:50%;width:42px;height:42px;margin-top:-21px;border-radius:50%;font-size:16px}
+.lb-nav.prev{left:clamp(8px,2vw,24px)}
+.lb-nav.next{right:clamp(8px,2vw,24px)}
+.lb-nav[hidden]{display:none}
+.lb .x:hover,.lb-nav:hover{background:var(--signal);border-color:var(--signal)}

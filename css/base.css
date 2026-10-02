@@ -1,0 +1,48 @@
+/* =====================================================================
+   BASE
+   Reset, body type, page width and the text styles shared by every
+   section (the /// eyebrow labels and section titles).
+   ===================================================================== */
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px} /* anchors land below the sticky header */
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--body);font-size:17px;line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:2px}
+
+/* centred column used by every section */
+.wrap{max-width:1120px;margin:0 auto;padding:0 var(--gut)}
+
+/* text only screen readers hear (used by the animated hero name) */
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+
+/* smooth colour change when switching theme */
+@media (prefers-reduced-motion: no-preference){
+  body,.mast,.proj,.figure,.cap,.specbar div,.stage-media{
+    transition:background-color .25s ease,color .25s ease,border-color .25s ease;
+  }
+}
+
+/* ---------- shared type ---------- */
+.eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--slate);margin:0 0 18px;
+}
+.eyebrow .bar{color:var(--signal)}
+
+h2.sec-title{
+  font-family:var(--display);font-weight:700;
+  font-size:clamp(26px,3.4vw,38px);letter-spacing:-.02em;
+  line-height:1.1;margin:0 0 6px;
+}
+.sec-note{color:var(--slate);max-width:54ch;margin:0 0 40px;font-size:16px}
+
+/* every <section> gets the same vertical rhythm and top rule */
+section{padding:clamp(56px,8vw,104px) 0;border-top:1px solid var(--rule)}

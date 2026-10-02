@@ -1,0 +1,47 @@
+/* =====================================================================
+   CONTACT, FOOTER AND BACK-TO-TOP
+   The navy block at the end of the page. Colours here are fixed rather
+   than tokens because the block is navy in both light and dark themes.
+   ===================================================================== */
+
+.contact{background:var(--navy);color:#fff;border-top:none}
+.contact h2.sec-title{color:#fff}
+.contact .eyebrow{color:#9FB0CC}
+.contact .eyebrow .bar{color:#FF7FB4}
+.contact-lede{font-size:clamp(18px,2.3vw,23px);max-width:42ch;margin:0 0 34px;color:#D6DEEC}
+
+/* ---------- contact links ---------- */
+.clist{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.16)}
+.clink{background:var(--navy);padding:22px 24px;text-decoration:none;display:block;position:relative;transition:background .18s ease}
+.clink:hover{background:#16294B}
+.clink .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:#9FB0CC;display:block;margin-bottom:8px}
+.clink .v{font-family:var(--display);font-weight:600;font-size:16px;color:#fff;word-break:break-word;transition:color .18s ease}
+.clink:hover .v{color:#FF7FB4}
+
+/* arrow in the corner: ↗ for links, ↓ for the CV download */
+.clink::after{
+  content:"↗";position:absolute;top:18px;right:20px;
+  font-family:var(--mono);font-size:14px;color:#9FB0CC;
+  transition:transform .25s var(--ease),color .25s ease;
+}
+.clink[download]::after{content:"↓"}
+.clink:hover::after{color:#FF7FB4;transform:translate(3px,-3px)}
+.clink[download]:hover::after{transform:translateY(3px)}
+
+/* ---------- footer ---------- */
+footer{padding:26px 0 40px;background:var(--navy)}
+footer .fin{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:#8FA1BF}
+
+/* ---------- back-to-top button (shown by js/nav.js) ---------- */
+.to-top{
+  position:fixed;right:clamp(16px,3vw,28px);bottom:clamp(16px,3vw,28px);z-index:40;
+  width:44px;height:44px;border-radius:50%;padding:0;
+  display:grid;place-items:center;cursor:pointer;
+  background:var(--card);color:var(--ink);border:1px solid var(--rule);
+  box-shadow:0 8px 24px -12px rgba(16,25,46,.45);
+  opacity:0;transform:translateY(12px);pointer-events:none;
+  transition:opacity .3s ease,transform .3s var(--ease),border-color .2s ease,color .2s ease;
+}
+.to-top.show{opacity:1;transform:none;pointer-events:auto}
+.to-top:hover{border-color:var(--signal);color:var(--signal)}
+.to-top svg{width:18px;height:18px}

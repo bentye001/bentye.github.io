@@ -23,10 +23,18 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script>
-(function(){try{var s=localStorage.getItem("theme");var d=s?s==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches;document.documentElement.setAttribute("data-theme",d?"dark":"light");}catch(e){}})();
-</script>
-<link rel="stylesheet" href="styles.css?v=5">
+<!-- Runs before the page paints so dark mode never flashes light first -->
+<script src="js/theme-init.js"></script>
+<!-- Stylesheets, loaded in order. Each file covers one part of the page. -->
+<link rel="stylesheet" href="css/tokens.css">     <!-- colours, fonts, motion settings -->
+<link rel="stylesheet" href="css/base.css">       <!-- reset, shared type, section spacing -->
+<link rel="stylesheet" href="css/header.css">     <!-- sticky masthead, nav, theme + menu buttons -->
+<link rel="stylesheet" href="css/hero.css">       <!-- intro block and animated foot figure -->
+<link rel="stylesheet" href="css/projects.css">   <!-- project cards, image stages, metrics, CAD practice -->
+<link rel="stylesheet" href="css/sections.css">   <!-- focus, capabilities, background timeline -->
+<link rel="stylesheet" href="css/contact.css">    <!-- contact block, footer, back-to-top -->
+<link rel="stylesheet" href="css/lightbox.css">   <!-- enlarged image viewer -->
+<link rel="stylesheet" href="css/motion.css">     <!-- scroll reveals and pointer effects -->
 </head>
 <body>
 
@@ -34,7 +42,7 @@
   <div class="wrap mast-in">
     <a class="sig" href="#top">BEN TYE<i>.</i></a>
     <div class="mast-end">
-      <nav>
+      <nav id="siteNav" aria-label="Sections">
         <a href="#focus">Focus</a>
         <a href="#work">Work</a>
         <a href="#capabilities">Capabilities</a>
@@ -45,8 +53,12 @@
         <svg class="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"/></svg>
         <svg class="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>
       </button>
+      <button class="menu-toggle" type="button" id="menuToggle" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">
+        <span></span><span></span>
+      </button>
     </div>
   </div>
+  <span class="mast-progress" id="progress" aria-hidden="true"></span>
 </header>
 
 <main id="top">
@@ -56,7 +68,7 @@
   <div class="wrap hero-grid">
     <div>
       <p class="eyebrow"><span class="bar">///</span> BEng Mechanical Engineering, UEA &nbsp;·&nbsp; Norwich, UK</p>
-      <h1>Ben Tye</h1>
+      <h1 class="hero-name">Ben Tye</h1>
       <p class="lede">Mechanical engineering graduate working towards medical devices. My final year project showed that <b>the response of a low-cost pressure sensor can be tuned through the 3D printed structure around it</b>.</p>
       <div class="actions">
         <a class="btn solid" href="#work">See the work</a>
@@ -67,20 +79,20 @@
 
     <div class="figure">
       <p class="fig-key">
-        <span><i style="background:var(--rear)"></i>Rearfoot</span>
-        <span><i style="background:var(--mid)"></i>Midfoot</span>
-        <span><i style="background:var(--fore)"></i>Forefoot</span>
+        <span><i class="key-rear"></i>Rearfoot</span>
+        <span><i class="key-mid"></i>Midfoot</span>
+        <span><i class="key-fore"></i>Forefoot</span>
       </p>
       <svg viewBox="0 0 300 470" role="img" aria-label="Plantar sensor map: eight force-sensitive resistors arranged across a foot outline in rearfoot, midfoot and forefoot groups, with a centre-of-pressure trajectory tracing from heel strike to toe-off.">
         <!-- toes -->
-        <ellipse class="sole" cx="95"  cy="126" rx="22"   ry="27"/>
-        <ellipse class="sole" cx="133" cy="133" rx="15"   ry="20"/>
-        <ellipse class="sole" cx="160" cy="136" rx="13.5" ry="18"/>
-        <ellipse class="sole" cx="182" cy="142" rx="12.5" ry="16"/>
-        <ellipse class="sole" cx="199" cy="152" rx="11"   ry="13.5"/>
+        <ellipse class="sole" pathLength="1" cx="95"  cy="126" rx="22"   ry="27"/>
+        <ellipse class="sole" pathLength="1" cx="133" cy="133" rx="15"   ry="20"/>
+        <ellipse class="sole" pathLength="1" cx="160" cy="136" rx="13.5" ry="18"/>
+        <ellipse class="sole" pathLength="1" cx="182" cy="142" rx="12.5" ry="16"/>
+        <ellipse class="sole" pathLength="1" cx="199" cy="152" rx="11"   ry="13.5"/>
 
         <!-- sole -->
-        <path class="sole" d="M140,430
+        <path class="sole" pathLength="1" d="M140,430
           C170,432 187,416 194,392
           C202,366 200,348 198,320
           C196,292 192,268 192,240
@@ -102,14 +114,14 @@
           C125,188 124,184 122,179"/>
 
         <!-- sensors -->
-        <circle class="sensor r" cx="140" cy="400" r="5" style="animation-delay:0s"/>
-        <circle class="sensor r" cx="168" cy="372" r="5" style="animation-delay:.18s"/>
-        <circle class="sensor r" cx="120" cy="372" r="5" style="animation-delay:.18s"/>
-        <circle class="sensor m" cx="170" cy="280" r="5" style="animation-delay:.85s"/>
-        <circle class="sensor m" cx="130" cy="285" r="5" style="animation-delay:.85s"/>
-        <circle class="sensor f" cx="106" cy="203" r="5" style="animation-delay:1.6s"/>
-        <circle class="sensor f" cx="146" cy="186" r="5" style="animation-delay:1.6s"/>
-        <circle class="sensor f" cx="180" cy="196" r="5" style="animation-delay:1.75s"/>
+        <circle class="sensor r" cx="140" cy="400" r="5"/>
+        <circle class="sensor r" cx="168" cy="372" r="5"/>
+        <circle class="sensor r" cx="120" cy="372" r="5"/>
+        <circle class="sensor m" cx="170" cy="280" r="5"/>
+        <circle class="sensor m" cx="130" cy="285" r="5"/>
+        <circle class="sensor f" cx="106" cy="203" r="5"/>
+        <circle class="sensor f" cx="146" cy="186" r="5"/>
+        <circle class="sensor f" cx="180" cy="196" r="5"/>
 
         <!-- phase labels, anchored inside the viewBox -->
         <text class="phase" x="292" y="420" text-anchor="end">HEEL STRIKE</text>
@@ -123,7 +135,7 @@
 <!-- ============ FOCUS ============ -->
 <section id="focus">
   <div class="wrap">
-    <div class="focus-grid reveal">
+    <div class="focus-grid">
       <div>
         <p class="eyebrow"><span class="bar">///</span> Focus</p>
         <h2 class="sec-title">Where I want<br>to work</h2>
@@ -140,14 +152,14 @@
 <!-- ============ WORK ============ -->
 <section id="work">
   <div class="wrap">
-    <div class="reveal">
+    <div>
       <p class="eyebrow"><span class="bar">///</span> Selected work</p>
       <h2 class="sec-title">Three projects</h2>
       <p class="sec-note">Each project covers the problem, the build, the results and what did not work.</p>
     </div>
 
     <!-- P1: FYP -->
-    <article class="proj reveal">
+    <article class="proj">
       <div class="proj-head">
         <p class="proj-tag">Final year major project · UEA · 2025/26</p>
         <h3>Instrumented footwear platform</h3>
@@ -259,7 +271,7 @@
     </article>
 
     <!-- P2: Pillbox -->
-    <article class="proj reveal">
+    <article class="proj">
       <div class="proj-head">
         <p class="proj-tag">Pair project · Embedded sensing &amp; computer vision</p>
         <h3>Smart Pillbox System</h3>
@@ -340,7 +352,7 @@
     </article>
 
     <!-- P3: Knuckle joint -->
-    <article class="proj reveal">
+    <article class="proj">
       <div class="proj-head">
         <p class="proj-tag">Design &amp; detailing &middot; Stress Analysis and Design &middot; 2025/26</p>
         <h3>Knuckle joint: detailing and stress analysis</h3>
@@ -420,7 +432,7 @@
     </article>
 
 
-    <div class="reveal practice-head">
+    <div class="practice-head">
       <p class="eyebrow"><span class="bar">///</span> CAD practice</p>
       <h2 class="sec-title">Tutorial builds</h2>
       <p class="practice-note">These are not my own designs. I worked through them from structured Fusion 360 tutorials to widen my modelling range across gear generation, multi body assemblies and linkage mechanisms, and produced the drawing sets from the finished models. They are here to show what I can model and detail, not what I have specified.</p>
@@ -454,12 +466,12 @@
 <!-- ============ CAPABILITIES ============ -->
 <section id="capabilities">
   <div class="wrap">
-    <div class="reveal">
+    <div>
       <p class="eyebrow"><span class="bar">///</span> Capabilities</p>
       <h2 class="sec-title">Skills<br>and tools</h2>
       <p class="sec-note">Grouped by the part of a build each belongs to. Everything here comes from one of the projects above.</p>
     </div>
-    <div class="caps reveal">
+    <div class="caps">
       <div class="cap">
         <h3>Mechanical</h3>
         <ul>
@@ -510,11 +522,11 @@
 <!-- ============ BACKGROUND ============ -->
 <section id="background">
   <div class="wrap">
-    <div class="reveal">
+    <div>
       <p class="eyebrow"><span class="bar">///</span> Background</p>
       <h2 class="sec-title">Education<br>and experience</h2>
     </div>
-    <div class="tl reveal">
+    <div class="tl">
       <div class="row">
         <div class="when">2023 – 2026</div>
         <div class="what">
@@ -548,7 +560,7 @@
 <!-- ============ CONTACT ============ -->
 <section class="contact" id="contact">
   <div class="wrap">
-    <p class="eyebrow"><span class="bar" style="color:#FF7FB4">///</span> Contact</p>
+    <p class="eyebrow"><span class="bar">///</span> Contact</p>
     <h2 class="sec-title">Let's talk</h2>
     <p class="contact-lede">If you are hiring graduate engineers in mechanical design, medical devices or instrumentation, I would like to hear from you.</p>
     <div class="clist">
@@ -579,82 +591,27 @@
   </div>
 </footer>
 
+<button class="to-top" type="button" id="toTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg>
+</button>
+
 <!-- lightbox -->
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Enlarged project image">
   <button class="x" type="button" id="lbClose">Close ✕</button>
+  <button class="lb-nav prev" type="button" id="lbPrev" aria-label="Previous image">←</button>
+  <button class="lb-nav next" type="button" id="lbNext" aria-label="Next image">→</button>
   <figure>
     <img id="lbImg" src="" alt="">
-    <figcaption id="lbCap"></figcaption>
+    <figcaption><span class="lb-count" id="lbCount"></span><span id="lbCap"></span></figcaption>
   </figure>
 </div>
 
-<script>
-(function(){
-  var els = document.querySelectorAll('.reveal');
-  if(!('IntersectionObserver' in window)){
-    els.forEach(function(e){e.classList.add('in')});
-    return;
-  }
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(en){
-      if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
-    });
-  },{threshold:.02,rootMargin:'0px 0px -40px 0px'});
-  els.forEach(function(e){io.observe(e)});
-})();
-
-/* lightbox */
-(function(){
-  var lb    = document.getElementById('lb'),
-      lbImg = document.getElementById('lbImg'),
-      lbCap = document.getElementById('lbCap'),
-      last  = null;
-
-  function open(shot){
-    var img = shot.querySelector('img');
-    lbImg.src = img.src;
-    lbImg.alt = img.alt;
-    lbCap.textContent = shot.getAttribute('data-cap') || img.alt;
-    lb.classList.add('on');
-    document.body.style.overflow = 'hidden';
-    last = shot;
-    document.getElementById('lbClose').focus();
-  }
-  function close(){
-    lb.classList.remove('on');
-    lbImg.src = '';
-    document.body.style.overflow = '';
-    if(last){ last.focus(); last = null; }
-  }
-
-  document.querySelectorAll('.shot').forEach(function(s){
-    s.addEventListener('click', function(){ open(s); });
-  });
-  lb.addEventListener('click', function(e){
-    if(e.target === lb || e.target.id === 'lbClose' || e.target.tagName === 'FIGURE') close();
-  });
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape' && lb.classList.contains('on')) close();
-  });
-})();
-</script>
-<script>
-(function(){
-  var btn = document.getElementById("themeToggle"), root = document.documentElement;
-  if(!btn) return;
-  function sync(){
-    var dark = root.getAttribute("data-theme") === "dark";
-    btn.setAttribute("aria-pressed", dark ? "true" : "false");
-    btn.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
-  }
-  sync();
-  btn.addEventListener("click", function(){
-    var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    root.setAttribute("data-theme", next);
-    try{ localStorage.setItem("theme", next); }catch(e){}
-    sync();
-  });
-})();
-</script>
+<!-- Scripts, one per feature. Each can be removed without breaking the others. -->
+<script src="js/theme.js"></script>          <!-- dark / light toggle -->
+<script src="js/nav.js"></script>            <!-- progress bar, active section, mobile menu, back to top -->
+<script src="js/counters.js"></script>       <!-- metric numbers count up when revealed -->
+<script src="js/reveal.js"></script>         <!-- text and images animate in on scroll -->
+<script src="js/pointer-effects.js"></script><!-- figure tilt and card spotlight -->
+<script src="js/lightbox.js"></script>       <!-- click an image to enlarge, arrows to browse -->
 </body>
 </html>

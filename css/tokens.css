@@ -1,0 +1,84 @@
+/* =====================================================================
+   TOKENS
+   Every colour, font and motion setting lives here. Change a value once
+   and it updates everywhere it is used, e.g. swap --signal to change the
+   pink accent across the whole site.
+   ===================================================================== */
+
+:root{
+  /* ---- surfaces and text ---- */
+  --paper:#F2F4F7;        /* page background */
+  --card:#FFFFFF;         /* project cards, figure panel */
+  --ink:#10192E;          /* headings and strong text */
+  --navy:#1F3864;         /* brand colour: buttons, contact block */
+  --slate:#6B7789;        /* muted labels */
+  --signal:#C81D6B;       /* accent pink */
+  --rule:#D8DEE7;         /* hairline borders */
+
+  --lede:#2A3550;
+  --text:#33405A;
+  --text-soft:#3A465F;
+  --list:#2E3A52;
+  --tint:#FAFBFC;
+  --frame:#EDF0F4;
+  --edge:#1F3864;
+  --mast-bg:rgba(242,244,247,.88);
+  --hl:rgba(200,29,107,.13);     /* highlighter behind key phrases */
+  --sole:#D8DEE7;                /* foot outline in the hero figure */
+
+  /* ---- foot regions in the hero figure ---- */
+  --rear:#1F3864;
+  --mid:#7A6FA8;
+  --fore:#C81D6B;
+
+  /* ---- fonts ---- */
+  --display:'Archivo',system-ui,sans-serif;
+  --body:'Source Serif 4',Georgia,serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+
+  /* ---- layout ---- */
+  --gut:clamp(20px,5vw,64px);     /* side padding */
+
+  /* ---- motion (used by css/motion.css) ----
+     Make reveals slower, faster, bigger or subtler from here. */
+  --ease:cubic-bezier(.2,.7,.2,1); /* fast start, soft landing */
+  --reveal-time:.8s;               /* how long a fade-up takes */
+  --reveal-shift:22px;             /* how far text rises as it appears */
+  --stagger:80ms;                  /* gap between items appearing together */
+  --word-stagger:55ms;             /* gap between words in a heading */
+  --type-speed:24ms;               /* per character, for the /// labels */
+}
+
+/* ---------------------------------------------------------------------
+   DARK THEME
+   The same variables with dark values. It is written twice on purpose:
+   1. follow the system setting, unless the visitor picked light;
+   2. apply when the visitor picked dark with the toggle.
+   CSS cannot share one block between a media query and an attribute,
+   so if you change a dark colour, change it in both blocks.
+   --------------------------------------------------------------------- */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0D1322;  --card:#141C2E;  --ink:#E7ECF5;  --navy:#22407A;
+    --slate:#95A2B8;  --signal:#F0508F; --rule:#27324A;
+    --rear:#7FA3E0;   --mid:#A99CE0;   --fore:#F0508F;
+    --lede:#C9D2E3;   --text:#BCC6D8;  --text-soft:#B3BED2; --list:#C3CCDD;
+    --tint:#18223A;   --frame:#1B253B; --edge:#5873A8;
+    --mast-bg:rgba(13,19,34,.86);
+    --hl:rgba(240,80,143,.24);
+    --sole:#4A5A7C;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0D1322;  --card:#141C2E;  --ink:#E7ECF5;  --navy:#22407A;
+  --slate:#95A2B8;  --signal:#F0508F; --rule:#27324A;
+  --rear:#7FA3E0;   --mid:#A99CE0;   --fore:#F0508F;
+  --lede:#C9D2E3;   --text:#BCC6D8;  --text-soft:#B3BED2; --list:#C3CCDD;
+  --tint:#18223A;   --frame:#1B253B; --edge:#5873A8;
+  --mast-bg:rgba(13,19,34,.86);
+  --hl:rgba(240,80,143,.24);
+  --sole:#4A5A7C;
+  color-scheme:dark;
+}
+:root[data-theme="light"]{color-scheme:light}

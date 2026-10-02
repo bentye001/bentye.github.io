@@ -1,0 +1,121 @@
+/* =====================================================================
+   MOTION
+   Scroll-reveal and pointer effects. The page works and reads normally
+   without this file, because nothing here hides content by itself:
+   js/reveal.js adds the classes below to elements, then adds .in when
+   each one scrolls into view, and finally removes them once it has
+   finished animating.
+
+   Effects (the class js/reveal.js gives an element):
+     .rv-up     fades in while rising
+     .rv-type   types out left to right (the /// labels)
+     .rv-split  heading words rise out of a mask, one after another
+     .rv-wipe   image is uncovered left to right while settling from a zoom
+     .rv-inner  the box stays put, its contents fade in (grid cells)
+
+   Timing settings (speed, distance, stagger) are in css/tokens.css.
+   ===================================================================== */
+
+/* shared timing; --i is the element's place in the group appearing together */
+.rv{
+  transition-property:opacity,transform,clip-path,background-size;
+  transition-duration:var(--reveal-time);
+  transition-timing-function:var(--ease);
+  transition-delay:calc(var(--i,0) * var(--stagger));
+}
+
+/* ---------- fade up ---------- */
+.rv-up{opacity:0;transform:translateY(var(--reveal-shift))}
+.rv-up.in{opacity:1;transform:none}
+.row.rv-up{transform:translateX(calc(var(--reveal-shift) * -1))}   /* timeline rows slide in from the left */
+.row.rv-up.in{transform:none}
+
+/* ---------- typewriter (/// labels) ----------
+   --n is the number of characters, set by the script, so every label
+   types at the same speed whatever its length. */
+.rv-type{
+  clip-path:inset(0 100% 0 0);
+  transition:clip-path calc(var(--n,20) * var(--type-speed)) steps(var(--n,20),end) calc(var(--i,0) * var(--stagger));
+}
+.rv-type.in{clip-path:inset(0 0 0 0)}
+
+/* ---------- headings, word by word ----------
+   The script wraps each word as <span class="w"><span>word</span></span>.
+   The outer span is a window; the inner one slides up into it. */
+.rv-split .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.12em;margin-bottom:-.12em}
+.rv-split .w > span{
+  display:inline-block;transform:translateY(130%);   /* far enough down to sit fully below the window */
+  transition:transform .9s var(--ease);
+  transition-delay:calc(var(--i,0) * var(--stagger) + var(--w,0) * var(--word-stagger));
+}
+.rv-split.in .w > span{transform:none}
+
+/* ---------- image wipe ---------- */
+.rv-wipe{clip-path:inset(0 100% 0 0);transition-duration:1.1s}
+.rv-wipe.in{clip-path:inset(0 0 0 0)}
+.rv-wipe img{transform:scale(1.15);transition:transform 1.4s var(--ease) calc(var(--i,0) * var(--stagger))}
+.rv-wipe.in img{transform:none}
+
+/* ---------- box stays, contents fade (spec cells, contact links) ---------- */
+.rv-inner > *{
+  opacity:0;transform:translateY(10px);
+  transition:opacity .6s var(--ease),transform .6s var(--ease);
+  transition-delay:calc(var(--i,0) * var(--stagger));
+}
+.rv-inner.in > *{opacity:1;transform:none}
+
+/* ---------- small extras that ride along with a reveal ---------- */
+
+/* the line in "01 —— Design" draws itself */
+.stage-n.rv span{transform:scaleX(0);transform-origin:left;transition:transform .9s var(--ease) calc(var(--i,0) * var(--stagger) + .3s)}
+.stage-n.rv.in span{transform:none}
+
+/* pink bullets in "What it showed" draw out after their text appears */
+.outcome li.rv::before{transform:scaleX(0);transition:transform .6s var(--ease) calc(var(--i,0) * var(--stagger) + .35s)}
+.outcome li.rv.in::before{transform:none}
+
+/* capability headings: the pink underline draws left to right */
+.cap h3.rv{
+  border-bottom-color:transparent;
+  background:linear-gradient(var(--signal),var(--signal)) no-repeat 0 100% / 0 2px;
+  background-origin:border-box;
+}
+.cap h3.rv.in{background-size:100% 2px}
+
+/* hero figure: the foot outline traces itself, toes one after another */
+.figure.rv .sole{stroke-dasharray:1;stroke-dashoffset:1}
+.figure.rv.in .sole{animation:draw 1.6s var(--ease) .25s forwards}
+.figure.rv.in ellipse.sole:nth-of-type(2){animation-delay:.35s}
+.figure.rv.in ellipse.sole:nth-of-type(3){animation-delay:.45s}
+.figure.rv.in ellipse.sole:nth-of-type(4){animation-delay:.55s}
+.figure.rv.in ellipse.sole:nth-of-type(5){animation-delay:.65s}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* hero highlight sweeps across the key finding shortly after load */
+@media (prefers-reduced-motion: no-preference){
+  .hero p.lede b{animation:highlight 1.2s var(--ease) 1.1s both}
+}
+@keyframes highlight{from{background-size:0 .42em}}
+
+/* ---------- pointer spotlight ----------
+   A soft glow follows the cursor across capability cards and contact
+   links. js/pointer-effects.js sets --mx and --my to the cursor position. */
+.cap::before,.clink::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s ease;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),var(--hl),transparent 70%);
+}
+.clink::before{background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,127,180,.16),transparent 70%)}
+.cap:hover::before,.clink:hover::before{opacity:1}
+.cap > *,.clink > *{position:relative}   /* keep text above the glow */
+
+/* ---------- reduced motion ----------
+   Visitors who ask their system for less motion get the finished page
+   straight away. (js/reveal.js also skips them, this is a safety net.) */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .cop{stroke-dashoffset:0;animation:none}
+  .sensor,.dot{animation:none}
+  .rv,.rv *,.rv-inner > *{opacity:1!important;transform:none!important;clip-path:none!important;transition:none!important}
+  .figure.rv .sole{stroke-dasharray:none}
+  .figure svg,.lb,.lb img,.to-top,.mast nav{transition:none}
+}
