@@ -106,15 +106,14 @@
 @keyframes highlight{from{background-size:0 .42em}}
 
 /* ---------- pointer spotlight ----------
-   A soft glow follows the cursor across capability cards and contact
-   links. js/pointer-effects.js sets --mx and --my to the cursor position. */
-.cap::before,.clink::before{
+   A soft glow follows the cursor across the contact links.
+   js/pointer-effects.js sets --mx and --my to the cursor position. */
+.clink::before{
   content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s ease;
-  background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),var(--hl),transparent 70%);
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,127,180,.16),transparent 70%);
 }
-.clink::before{background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),rgba(255,127,180,.16),transparent 70%)}
-.cap:hover::before,.clink:hover::before{opacity:1}
-.cap > *,.clink > *{position:relative}   /* keep text above the glow */
+.clink:hover::before{opacity:1}
+.clink > *{position:relative}   /* keep text above the glow */
 
 /* ---------- reduced motion ----------
    Visitors who ask their system for less motion get the finished page

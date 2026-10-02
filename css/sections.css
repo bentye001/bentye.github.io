@@ -12,15 +12,14 @@
 /* ---------- capabilities ---------- */
 /* four cards; the 1px gap shows --rule through as grid lines */
 .caps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
-.cap{background:var(--card);padding:26px 24px;position:relative}
+.cap{background:var(--card);padding:26px 24px}
 .cap h3{
   font-family:var(--display);font-weight:600;font-size:15px;
   margin:0 0 16px;padding-bottom:12px;border-bottom:2px solid var(--signal);display:inline-block;
 }
 .cap ul{margin:0;padding:0;list-style:none}
-.cap li{font-size:15px;line-height:1.5;margin-bottom:9px;color:var(--list);transition:transform .2s ease,color .2s ease}
+.cap li{font-size:15px;line-height:1.5;margin-bottom:9px;color:var(--list)}
 .cap li:last-child{margin-bottom:0}
-.cap li:hover{color:var(--ink);transform:translateX(4px)}
 
 /* ---------- background timeline ---------- */
 .tl{border-top:1px solid var(--rule)}

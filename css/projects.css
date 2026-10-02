@@ -131,17 +131,17 @@ body{counter-reset:fig 1}
 .shot.dwg:hover img,.shot.chart:hover img,
 .plate .shot.dwg:hover img,.plate .shot.chart:hover img{transform:none}
 
-/* ---------- "What it showed" ---------- */
-.outcome{padding:clamp(26px,4vw,52px);display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(24px,4vw,52px)}
-@media(max-width:840px){.outcome{grid-template-columns:1fr;gap:22px}}
-.outcome h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);font-weight:400;margin:0}
-.outcome ul{margin:0;padding:0;list-style:none}
-.outcome li{position:relative;padding-left:22px;margin-bottom:14px;font-size:16.5px;line-height:1.6}
+/* ---------- "What it showed" ----------
+   Label on top, bullets underneath at full reading width. */
+.outcome{padding:clamp(24px,3.4vw,40px) clamp(26px,4vw,46px) clamp(20px,2.6vw,30px)}
+.outcome h4{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);font-weight:400;margin:0 0 16px}
+.outcome ul{margin:0;padding:0;list-style:none;max-width:82ch}
+.outcome li{position:relative;padding-left:22px;margin-bottom:12px;font-size:16.5px;line-height:1.6}
 .outcome li:last-child{margin-bottom:0}
 .outcome li::before{content:"";position:absolute;left:0;top:.68em;width:9px;height:1.5px;background:var(--signal);transform-origin:left}
 
 /* ---------- headline numbers ---------- */
-.metrics{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--rule);padding:20px clamp(26px,4vw,52px) clamp(26px,4vw,52px)}
+.metrics{display:flex;flex-wrap:wrap;gap:0;border-top:1px solid var(--rule);padding:20px clamp(26px,4vw,46px) clamp(24px,3.4vw,40px)}
 .metric{padding-right:30px;margin-right:30px;border-right:1px solid var(--rule)}
 .metric:last-child{border-right:none;padding-right:0;margin-right:0}
 .metric .n{

@@ -2,8 +2,7 @@
    POINTER EFFECTS
    Mouse-only touches; skipped on touch screens and for reduced motion.
    1. The hero foot figure tilts slightly towards the cursor.
-   2. A soft spotlight follows the cursor across capability cards and
-      contact links (the glow itself is styled in css/motion.css).
+   2. A soft spotlight follows the cursor across the contact links (the glow itself is styled in css/motion.css).
    ===================================================================== */
 (function () {
   var finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
@@ -28,7 +27,7 @@
   }
 
   /* ---------- 2: spotlight ---------- */
-  document.querySelectorAll(".cap, .clink").forEach(function (card) {
+  document.querySelectorAll(".clink").forEach(function (card) {
     card.addEventListener("pointermove", function (e) {
       var box = card.getBoundingClientRect();
       card.style.setProperty("--mx", (e.clientX - box.left) + "px");
