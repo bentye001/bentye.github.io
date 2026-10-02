@@ -16,6 +16,7 @@
 .lb figure{margin:0;max-width:1100px;width:100%;text-align:center}
 .lb img{
   max-width:100%;max-height:76vh;object-fit:contain;display:block;margin:0 auto;background:#fff;
+  border-radius:var(--radius);
   transform:scale(.96);transition:transform .45s var(--ease),opacity .2s ease;
 }
 .lb.on img{transform:none}
